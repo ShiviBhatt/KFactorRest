@@ -1,0 +1,9 @@
+{
+  "apps": [
+    {
+      "name": "interventions-api",
+      "script": "build/src/server.js",
+      "instances": 1
+    }
+  ]
+}

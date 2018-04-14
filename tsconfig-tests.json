@@ -1,0 +1,23 @@
+﻿{
+  "compilerOptions": {
+    "declaration": false,
+    "module": "commonjs",
+    "target": "es6",
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "strictNullChecks": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "types": [
+      "reflect-metadata"
+    ],
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "custom_typings/*"
+      ]
+    },
+    "forceConsistentCasingInFileNames": true
+  }
+}

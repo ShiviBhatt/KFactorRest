@@ -1,0 +1,26 @@
+﻿{
+  "compilerOptions": {
+    "allowJs": true,
+    "declaration": false,
+    "module": "commonjs",
+    "target": "es6",
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "strictNullChecks": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "types": [
+      "reflect-metadata"
+    ],
+    "sourceMap": true,
+    "rootDir": "./src",
+    "outDir": "./build",
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "custom_typings/*"
+      ]
+    },
+    "forceConsistentCasingInFileNames": true
+  }
+}
