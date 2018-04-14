@@ -15,9 +15,9 @@ import { IUser } from '../../models';
 import * as validate from '../../services/validation';
 import * as uidUtil from 'library-uid';
 
-export function deleteUserRouteHandler(req: IAuthenticatedRequest, res: exp.Response): void {
+export function putUserRouteHandler(req: IAuthenticatedRequest, res: exp.Response): void {
   const iocContainer = req.requestIocContainer;
-  const log = iocContainer.get<ILoggerFactory>(Symbol.for('ILoggerFactory')).getLogger('action.user.deleteUserRouteHandler');
+  const log = iocContainer.get<ILoggerFactory>(Symbol.for('ILoggerFactory')).getLogger('action.user.putUserRouteHandler');
 
   let user: IUser = req.body;
   let errors = [];

@@ -1,0 +1,17 @@
+/node_modules
+/tmp
+npm-debug.log
+/build
+/dist
+/typings
+/coverage
+/config/development.json
+/config/localtest.json
+/config/local.json
+/config/dbMigrateDropCreate.json
+/config/id_rsa
+/database.json
+npm-debug.log.*
+/.idea
+/.vscode/*.sql
+package-lock.json
