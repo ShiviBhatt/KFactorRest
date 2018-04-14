@@ -1,18 +1,18 @@
 {
   "dev": {
     "driver": "mysql",
-    "user": "root",
-    "password": "Power123",
+    "user": "dev",
+    "password": "test",
     "host": "localhost",
-    "database": "interventions",
+    "database": "quizUp",
     "multipleStatements": true
   },
   "test": {
     "driver": "mysql",
-    "user": "root",
-    "password": "Power123",
+    "user": "dev",
+    "password": "test",
     "host": "localhost",
-    "database": "interventions",
+    "database": "quizUp",
     "multipleStatements": true
   },
   "prod": {

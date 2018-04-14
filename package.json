@@ -1,13 +1,13 @@
 {
-  "name": "@types/interventions-api",
+  "name": "@types/quiz-up",
   "version": "0.0.1",
-  "description": "interventions-api",
+  "description": "quiz-up",
   "author": {
     "name": "PowerSchool"
   },
   "repository": {
     "type": "git",
-    "url": "https://gitswarm.powerschool.com/pbis/interventions-api.git"
+    "url": "https://gitswarm.powerschool.com/deshdeep.mandal/quizUp.git"
   },
   "files": [
     "src/models"
