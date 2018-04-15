@@ -70,7 +70,7 @@ import {
 kernel.bind<IApplicationSetup>(Symbol.for('IApplicationSetup')).to(ApplicationSetup);
 
 //VALIDATION
-import { IInterventionCreateModel, IIntervention } from './models';
+/* import { IInterventionCreateModel, IIntervention } from './models';
 import {
   IModelValidator
 } from './services/validation';
@@ -81,7 +81,7 @@ import {
 
 kernel.bind<IModelValidator<IInterventionCreateModel>>(Symbol.for('IModelValidator<ICreateIntervention>')).to(CreateInterventionValidator);
 kernel.bind<IModelValidator<IIntervention>>(Symbol.for('IModelValidator<IIntervention>')).to(InterventionValidator);
-
+ */
 //FAKE CURRENT PERSONA
 import {
   ICurrentPersonaService,
