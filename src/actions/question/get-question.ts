@@ -12,9 +12,9 @@ import { IInterventionService } from '../../services/intervention'; */
 import * as validate from '../../services/validation';
 import * as uidUtil from 'library-uid';
 
-export function getLeaderboardRouteHandler(req: IAuthenticatedRequest, res: exp.Response): void {
+export function getQuestionRouteHandler(req: IAuthenticatedRequest, res: exp.Response): void {
   const iocContainer = req.requestIocContainer;
-  const log = iocContainer.get<ILoggerFactory>(Symbol.for('ILoggerFactory')).getLogger('action.leaderboard.getLeaderboardRouteHandler');
+  const log = iocContainer.get<ILoggerFactory>(Symbol.for('ILoggerFactory')).getLogger('action.question.getQuestionRouteHandler');
 
   // Parse params
   let userUid = req.params.uid.trim();

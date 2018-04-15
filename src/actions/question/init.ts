@@ -6,11 +6,9 @@ import {
 } from 'pbis-common';
 import * as middleware from '../../middleware';
 
-import * as postChallengeRoute from './post-challenge';
-import * as getChallengeRoute from './get-challenges';
-import * as putChallengeRoute from './put-challenge';
-import * as getChallengeByRequestedRoute from './get-challenges-by-challenges-requested';
-import * as getChallengeByReceivedRoute from './get-challenges-by-challenges-received';
+import * as postQuestionRoute from './post-question';
+import * as getQuestionRoute from './get-question';
+import * as putQuestionRoute from './put-question';
 
 export function init(app: exp.Application, kernel: Kernel): void {
   const mustBeAuthenticated = kernel.get<IEnforceAuthenticationHandlerFactory>(Symbol.for('IEnforceAuthenticationHandlerFactory'));
@@ -58,10 +56,10 @@ export function init(app: exp.Application, kernel: Kernel): void {
    *       - User
    */
   app.post(
-    '/quizUp/v1/challenge',
+    '/quizUp/v1/question',
     middleware.authenticatedMiddlewares(mustBeAuthenticated),
     (req: IAuthenticatedRequest, res: exp.Response) => {
-      postChallengeRoute.postChallengesRouteHandler(req, res);
+      postQuestionRoute.postQuestionRouteHandler(req, res);
     });
 
   /**
@@ -80,54 +78,10 @@ export function init(app: exp.Application, kernel: Kernel): void {
    *       - User
    */
   app.get(
-    `/quizUp/v1/challenge`,
+    `/quizUp/v1/question`,
     middleware.authenticatedMiddlewares(mustBeAuthenticated),
     (req: IAuthenticatedRequest, res: exp.Response) => {
-      getChallengeRoute.getChallengesRouteHandler(req, res);
-    });
-
-  /**
-   * @swagger
-   * /quizUp/v1/user:
-   *   get:
-   *     description: Gets all users
-   *     produces:
-   *       - application/json
-   *     responses:
-   *       200:
-   *         description: List of users
-   *         schema:
-   *           $ref: '#/definitions/InterventionSummary'
-   *     tags:
-   *       - User
-   */
-  app.get(
-    `/quizUp/v1/challengesByChallengesRequested/:uid`,
-    middleware.authenticatedMiddlewares(mustBeAuthenticated),
-    (req: IAuthenticatedRequest, res: exp.Response) => {
-      getChallengeByRequestedRoute.getChallengesByChallengesRequestedRouteHandler(req, res);
-    });
-
-  /**
-   * @swagger
-   * /quizUp/v1/user:
-   *   get:
-   *     description: Gets all users
-   *     produces:
-   *       - application/json
-   *     responses:
-   *       200:
-   *         description: List of users
-   *         schema:
-   *           $ref: '#/definitions/InterventionSummary'
-   *     tags:
-   *       - User
-   */
-  app.get(
-    `/quizUp/v1/challengesByChallengesReceived/:uid`,
-    middleware.authenticatedMiddlewares(mustBeAuthenticated),
-    (req: IAuthenticatedRequest, res: exp.Response) => {
-      getChallengeByReceivedRoute.getChallengesByChallengesReceivedRouteHandler(req, res);
+      getQuestionRoute.getQuestionRouteHandler(req, res);
     });
   
   //TODO: Fix this swagger comment
@@ -157,9 +111,9 @@ export function init(app: exp.Application, kernel: Kernel): void {
    *       - Intervention
    */
   app.put(
-    '/quizUp/v1/challenge/:uid',
+    '/quizUp/v1/question/:Uid',
     middleware.authenticatedMiddlewares(mustBeAuthenticated),
     (req: IAuthenticatedRequest, res: exp.Response) => {
-      putChallengeRoute.putChallengesRouteHandler(req, res);
+      putQuestionRoute.putQuestionRouteHandler(req, res);
     });
 }

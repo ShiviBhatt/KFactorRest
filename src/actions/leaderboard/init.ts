@@ -81,7 +81,7 @@ export function init(app: exp.Application, kernel: Kernel): void {
     `/quizUp/v1/leaderboard`,
     middleware.authenticatedMiddlewares(mustBeAuthenticated),
     (req: IAuthenticatedRequest, res: exp.Response) => {
-      getLeaderboardRoute.getLiveUserRouteHandler(req, res);
+      getLeaderboardRoute.getLeaderboardRouteHandler(req, res);
     });
   
   //TODO: Fix this swagger comment
