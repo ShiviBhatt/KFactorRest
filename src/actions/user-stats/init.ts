@@ -26,7 +26,7 @@ export function init(app: exp.Application, kernel: Kernel): void {
    *      type: array
    *      items: 
    *        $ref: '#/definitions/User'
-
+   */
   /**
    * @swagger
    * /quizUp/v1/user:

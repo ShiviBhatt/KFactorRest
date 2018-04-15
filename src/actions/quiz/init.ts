@@ -28,7 +28,7 @@ export function init(app: exp.Application, kernel: Kernel): void {
    *      type: array
    *      items: 
    *        $ref: '#/definitions/User'
-
+   */
   /**
    * @swagger
    * /quizUp/v1/user:
@@ -83,7 +83,7 @@ export function init(app: exp.Application, kernel: Kernel): void {
     (req: IAuthenticatedRequest, res: exp.Response) => {
       getQuizRoute.getQuizRouteHandler(req, res);
     });
-  
+
   //TODO: Fix this swagger comment
   /**
    * @swagger

@@ -31,11 +31,11 @@ export class UserService implements IUserService {
     this.log = loggerFactory.getLogger('services.userService');
   }
 
-  public getUsers(): Promise<IUser[]>{
+  public getUsers(): Promise<IUser[]> {
     return this.persistenceService.getUsers();
   }
 
-  public createUser(user: IUser): Promise<IUser>{
+  public createUser(user: IUser): Promise<IUser> {
     //TODO: Call unified service
     return this.persistenceService.createUserTrans(user);
   }

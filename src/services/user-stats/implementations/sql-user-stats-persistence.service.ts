@@ -18,12 +18,12 @@ export class UserStatsPersistenceService implements IUserStatsPersistenceService
   ) {
     this.log = loggerFactory.getLogger('services.userPersistenceService');
   }
- 
-  public getUserStats(userId: number): Promise<IUserStats>{
+
+  public getUserStats(userId: number): Promise<IUserStats> {
         let params = {
             userId: userId
         };
-        let sql= `
+        let sql = `
         select user_id ,SUM(participated) participated,SUM(tie) tie,SUM(win) win,SUM(loss) loss
         from 
         (select distinct ${userId} as user_id,challenge_id,
@@ -41,10 +41,9 @@ export class UserStatsPersistenceService implements IUserStatsPersistenceService
           }
           return result;
         });
-    
   }
 
-  public createUserStatsTrans(userStats: IUserStats): Promise<IUserStats>{ 
-    return Promise.resolve(userStats);
+  public createUserStatsTrans(userStats: IUserStats): Promise<IUserStats> {
+        return Promise.resolve(userStats);
   }
 }

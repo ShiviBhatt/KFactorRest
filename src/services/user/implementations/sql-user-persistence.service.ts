@@ -18,25 +18,24 @@ export class UserPersistenceService implements IUserPersistenceService {
   ) {
     this.log = loggerFactory.getLogger('services.userPersistenceService');
   }
- 
-  public getUsers(): Promise<IUser[]>{
-        let params = {};
-        let sql= `
+
+  public getUsers(): Promise<IUser[]> {
+    let params = {};
+    let sql = `
         select 
         user_name,grade_level,grade_name,school_name,age,gender,dob,topics_int,show_flag
         from users;
         `;
 
-        return this.sqlDataDriver.query<IUser>(sql, params).then(results => {
-          if (!results) {
-            throw new NotFoundError(`Users do not exists`);
-          }
-          return results;
-        });
-    
+    return this.sqlDataDriver.query<IUser>(sql, params).then(results => {
+      if (!results) {
+        throw new NotFoundError(`Users do not exists`);
+      }
+      return results;
+    });
   }
 
-  public createUserTrans(user: IUser): Promise<IUser>{ 
+  public createUserTrans(user: IUser): Promise<IUser> {
     return Promise.resolve(user);
   }
 }

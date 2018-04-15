@@ -28,7 +28,6 @@ export function postLiveUserRouteHandler(req: IAuthenticatedRequest, res: exp.Re
     return;
   } */
 
-
   //TODO: call service
   /* let interventionService = iocContainer.get<IInterventionService>(Symbol.for('IInterventionService'));
   interventionService.createIntervention(intervention)

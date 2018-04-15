@@ -28,7 +28,7 @@ export function init(app: exp.Application, kernel: Kernel): void {
    *      type: array
    *      items: 
    *        $ref: '#/definitions/User'
-
+   */
   /**
    * @swagger
    * /quizUp/v1/user:
@@ -78,12 +78,12 @@ export function init(app: exp.Application, kernel: Kernel): void {
    *       - User
    */
   app.get(
-    `/quizUp/v1/leaderboard`,
+    '/quizUp/v1/leaderboard',
     middleware.authenticatedMiddlewares(mustBeAuthenticated),
     (req: IAuthenticatedRequest, res: exp.Response) => {
       getLeaderboardRoute.getLeaderboardRouteHandler(req, res);
     });
-  
+
   //TODO: Fix this swagger comment
   /**
    * @swagger

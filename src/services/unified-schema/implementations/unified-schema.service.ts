@@ -32,19 +32,19 @@ export class UnifiedSchemaService implements IUnifiedSchemaService {
   public getStudentDetails(userUid: string): Promise<IUser> {
     if (!validate.isValidUid(userUid)) {
       return Promise.reject(new Error(`invalid userUid:[${userUid}]`));
-		}
+    }
 
     let sql = `
-    SELECT
-			HEX(pa.username) as userName,
-			s.gradeLevel as gradeLevel,
-			sl.schoolName as schoolName,
-			s.dateOfBirth as dateOfBirth
-		FROM student s
-			JOIN productAccount pa ON pa.id = s.productAccountId
-			JOIN schoolEnrollment sle ON sle.studentId = s.id
-			JOIN school sl ON sl.id = sle.schoolId
-		WHERE pa.uid = :userUid
+      SELECT
+        HEX(pa.username) as userName,
+        s.gradeLevel as gradeLevel,
+        sl.schoolName as schoolName,
+        s.dateOfBirth as dateOfBirth
+      FROM student s
+        JOIN productAccount pa ON pa.id = s.productAccountId
+        JOIN schoolEnrollment sle ON sle.studentId = s.id
+        JOIN school sl ON sl.id = sle.schoolId
+      WHERE pa.uid = :userUid
     `;
     let params = { userUid: uidUtil.toBuffer(userUid) };
 

@@ -28,7 +28,6 @@ export function deleteUserRouteHandler(req: IAuthenticatedRequest, res: exp.Resp
     return;
   } */
 
-
   //TODO: call service
   /* let interventionService = iocContainer.get<IInterventionService>(Symbol.for('IInterventionService'));
   interventionService.createIntervention(intervention)
