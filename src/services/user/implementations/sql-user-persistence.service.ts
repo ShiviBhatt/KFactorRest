@@ -14,7 +14,7 @@ export class UserPersistenceService implements IUserPersistenceService {
   private log: ILogger;
   constructor(
     @inject(Symbol.for('ILoggerFactory')) loggerFactory: ILoggerFactory,
-    @inject(Symbol.for('ISqlDataDriverIntervention')) private sqlDataDriver: ISqlDataDriver,
+    @inject(Symbol.for('ISqlDataDriverUser')) private sqlDataDriver: ISqlDataDriver,
   ) {
     this.log = loggerFactory.getLogger('services.userPersistenceService');
   }

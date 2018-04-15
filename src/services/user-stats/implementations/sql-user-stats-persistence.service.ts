@@ -14,9 +14,9 @@ export class UserStatsPersistenceService implements IUserStatsPersistenceService
   private log: ILogger;
   constructor(
     @inject(Symbol.for('ILoggerFactory')) loggerFactory: ILoggerFactory,
-    @inject(Symbol.for('ISqlDataDriverIntervention')) private sqlDataDriver: ISqlDataDriver,
+    @inject(Symbol.for('ISqlDataDriverUserStats')) private sqlDataDriver: ISqlDataDriver,
   ) {
-    this.log = loggerFactory.getLogger('services.userPersistenceService');
+    this.log = loggerFactory.getLogger('services.userStatsPersistenceService');
   }
 
   public getUserStats(userId: number): Promise<IUserStats> {
