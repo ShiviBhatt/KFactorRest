@@ -26,7 +26,7 @@ export class LeaderboardService implements ILeaderboardService {
     @inject(Symbol.for('ILoggerFactory')) loggerFactory: ILoggerFactory,
     @inject(Symbol.for('ILeaderboardPersistenceService')) private persistenceService: ILeaderboardPersistenceService) {
 
-    this.log = loggerFactory.getLogger('services.userService');
+    this.log = loggerFactory.getLogger('services.leaderboardService');
   }
 
   public getLeaderboard(): Promise<IUser[]> {

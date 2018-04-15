@@ -26,7 +26,7 @@ export class LeaderboardPersistenceService implements ILeaderboardPersistenceSer
         FROM leaderboard l
          INNER JOIN users u ON l.user_id = u.id
          ORDER BY total_score DESC
-         LIMIT 10;
+         LIMIT 10
         `;
 
         return this.sqlDataDriver.query<IUser>(sql, params).then(results => {

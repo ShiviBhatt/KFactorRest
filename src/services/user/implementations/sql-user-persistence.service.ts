@@ -24,7 +24,7 @@ export class UserPersistenceService implements IUserPersistenceService {
     let sql = `
         select 
         user_name,grade_level,grade_name,school_name,age,gender,dob,topics_int,show_flag
-        from users;
+        from users
         `;
 
     return this.sqlDataDriver.query<IUser>(sql, params).then(results => {

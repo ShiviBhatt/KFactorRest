@@ -32,7 +32,7 @@ export class UserStatsPersistenceService implements IUserStatsPersistenceService
         case when (result='decided' or result='quit')  and winner_user_id= ${userId} then 1 else 0 end win,
         case when (result='decided' or result='quit')  and winner_user_id <> ${userId} then 1 else 0 end loss
         from challenge
-        where user_id= ${userId} or opponent_id= ${userId}) sub;
+        where user_id= ${userId} or opponent_id= ${userId}) sub
         `;
 
         return this.sqlDataDriver.querySingle<IUserStats>(sql, params).then(result => {
