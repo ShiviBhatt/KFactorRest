@@ -1,0 +1,105 @@
+{
+    "port": 4444,
+    "ui": {
+      "urlCors": "http://localhost:8080",
+      "urlIndexRedirect": "http://localhost:8080/"
+    },
+    "dbConfigIntervention": {
+      "host": "localhost",
+      "user": "root",
+      "password": "root",
+      "database": "interventions",
+      "multipleStatements": true,
+      "connection_limit": 100,
+      "debug": false,
+      "timezone": "Z"
+    },
+    "dbConfigUnifiedSchema": {
+      "connection_limit": 5,
+      "host": "localhost",
+      "user": "root",
+      "password": "root",
+      "database": "cp_shared_dev",
+      "debug": false
+    },
+    "cacheConfig": {
+      "host": "localhost",
+      "port": 6379,
+      "auth_pass": ""
+    },
+    "services": {
+      "accountmanagement": {
+        "protocol": "http",
+        "host": "localhost",
+        "port": 3000
+      },
+      "entitydistrict": {
+        "protocol": "http",
+        "host": "localhost",
+        "port": 3002
+      },
+      "entityservice": {
+        "protocol": "http",
+        "host": "localhost",
+        "port": 3001
+      },
+      "navigation": {
+        "protocol": "http",
+        "host": "localhost",
+        "port": 3101
+      }
+    },
+    "specialEducationServiceConfig": {
+      "serviceUrl": "https://api-uat.specialeducation.powerschool.com/"
+    },
+    "userServiceConfig": {
+      "userAccountCacheExpirationSeconds": "1200",
+      "userInfoCacheExpirationSeconds": "1200",
+      "userPersonaCacheExpirationSeconds": "1200"
+    },
+    "useMockUserService": false,
+    "mockUser": {
+      "userInfo": {
+        "Id": "10000000000000000000000000000000",
+        "districtId": "20000000000000000000000000000000",
+        "sub": "myMockUser",
+        "userType": "TEACHER"
+      },
+      "userPersona": {
+        "userAccountId": "10000000000000000000000000000000",
+        "userAccountUid": "10000000000000000000000000000000",
+        "districtId": "10000000000000000000000000000000",
+        "districtUid": "<DUE TO LAZY PROVISIONING OF DISTRICT BANK MUST MATCH REAL DISTRICT UID FOR YOUR ENV. SEE districtServiceConfig BELOW.>",
+        "userName": "myMockUser",
+        "firstName": "Mock",
+        "lastName": " User",
+        "userType": "TEACHER",
+        "teacherSourceSystemId": "10000000000000000000000000000000",
+        "teacherUid": "10000000000000000000000000000000"
+      }
+    },
+    "openIdConnectClient": {
+      "identityProvider": {
+        "issuer": "https://accounts-arwen.develop.powerschoolcorp.com",
+        "authorizationEndpoint": "https://accounts-arwen.develop.powerschoolcorp.com/as/authorization.oauth2",
+        "tokenEndpoint": "https://accounts-arwen.develop.powerschoolcorp.com/as/token.oauth2",
+        "userInfoEndpoint": "https://accounts-arwen.develop.powerschoolcorp.com/idp/userinfo.openid",
+        "jwks_uri": "https://accounts-arwen.develop.powerschoolcorp.com/pf/JWKS",
+        "revocationEndpoint": "https://accounts-arwen.develop.powerschoolcorp.com/as/revoke_token.oauth2",
+        "introspectEndpoint": "https://accounts-arwen.develop.powerschoolcorp.com/as/introspect.oauth2",
+        "endSessionEndpoint": "https://accounts-arwen.develop.powerschoolcorp.com/idp/startSLO.ping"
+      },
+      "relyingParty": {
+        "clientId": "assessmentcontent",
+        "clientSecret": "<your relying party client secret here>",
+        "redirectUri": "http://localhost:8089/sso/callback"
+      }
+    },
+    "revision": {
+      "gitSha": "7f89f05",
+      "buildNumber": "100"
+    },
+    "logger": {
+      "level": "info"
+    }
+  }
