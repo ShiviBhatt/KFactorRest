@@ -12,31 +12,32 @@ import {
   NotFoundError
 } from 'pbis-common';
 import {
-  IUser
+  IUserStats
 } from '../../../models';
 import { IUnifiedSchemaService } from '../../unified-schema';
 import * as validate from '../../validation';
-import { IUserPersistenceService, IUserService } from '../interfaces';
+import { IUserStatsPersistenceService, IUserStatsService } from '../interfaces';
 
 @injectable()
-export class UserService implements IUserService {
+export class UserStatsService implements IUserStatsService {
 
   private log: ILogger;
 
   constructor(
     @inject(Symbol.for('ILoggerFactory')) loggerFactory: ILoggerFactory,
-    @inject(Symbol.for('IUserPersistenceService')) private persistenceService: IUserPersistenceService,
-    @inject(Symbol.for('IUnifiedSchemaService')) private unifiedSchemaService: IUnifiedSchemaService) {
+    @inject(Symbol.for('IUserStatsPersistenceService')) private persistenceService: IUserStatsPersistenceService) {
 
     this.log = loggerFactory.getLogger('services.userService');
   }
 
-  public getUsers(): Promise<IUser[]>{
-    return this.persistenceService.getUsers();
+  public getUsersStats(userId: number): Promise<IUserStats>{
+    if (userId < 1) {
+      return Promise.reject(new BadRequestError('userId cannot be less than 1'));
+    }
+    return this.persistenceService.getUserStats(userId);
   }
 
-  public createUser(user: IUser): Promise<IUser>{
-    //TODO: Call unified service
-    return this.persistenceService.createUserTrans(user);
+  public createUserStats(userStats: IUserStats): Promise<IUserStats>{
+    return this.persistenceService.createUserStatsTrans(userStats);
   }
 }
