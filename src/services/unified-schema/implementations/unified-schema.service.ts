@@ -35,8 +35,8 @@ export class UnifiedSchemaService implements IUnifiedSchemaService {
     }
 
     let sql = `
-      SELECT
-        HEX(pa.username) as userName,
+      SELECT distinct
+        pa.username as userName,
         pa.firstName as firstName,
         pa.lastName as lastName,
         s.gradeLevel as gradeLevel,
