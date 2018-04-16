@@ -5,6 +5,9 @@ import {
 } from '../../../models';
 
 export interface IUserPersistenceService {
-  createUserTrans(user: IUser): Promise<IUser>;
+  createUserTrans(user: IUser): Promise<Number>;
   getUsers(): Promise<IUser[]>;
+  checkUserExistOrNot(userUid: string): Promise<Number>;
+  showPopUpOrNot(userUid: string): Promise<Number>;
+  updateUserTrans(user: IUser): Promise<Number>;
 }

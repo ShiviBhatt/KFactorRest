@@ -6,6 +6,9 @@ import {
 } from '../../../models';
 
 export interface IUserService {
-  createUser(user: IUser): Promise<IUser>;
+  createUser(user: IUser): Promise<Number>;
   getUsers(): Promise<IUser[]>;
+  checkUserExistOrNot(userUid: string): Promise<Boolean>;
+  showPopUpOrNot(userUid: string): Promise<Boolean>;
+  updateUser(user: IUser): Promise<Number>;
 }

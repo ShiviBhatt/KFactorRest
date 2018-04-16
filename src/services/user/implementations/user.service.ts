@@ -35,8 +35,40 @@ export class UserService implements IUserService {
     return this.persistenceService.getUsers();
   }
 
-  public createUser(user: IUser): Promise<IUser> {
-    //TODO: Call unified service
+  public createUser(user: IUser): Promise<Number> {
+    //TODO: Call unified service, not req as UI will call this service and post data
     return this.persistenceService.createUserTrans(user);
+  }
+
+  public checkUserExistOrNot(userUid: string): Promise<Boolean> {
+    if (!validate.isValidUid(userUid)) {
+      return Promise.reject(new BadRequestError('Invalid userUid was passed'));
+    }
+    return this.persistenceService.checkUserExistOrNot(userUid)
+    .then((count) => {
+      if (count > 0){
+        return Promise.resolve(true);
+      } else {
+        return Promise.resolve(false);
+      }
+    });
+  }
+
+  public showPopUpOrNot(userUid: string): Promise<Boolean> {
+    if (!validate.isValidUid(userUid)) {
+      return Promise.reject(new BadRequestError('Invalid userUid was passed'));
+    }
+    return this.persistenceService.showPopUpOrNot(userUid)
+    .then((flag) => {
+      if (flag === 1){
+        return Promise.resolve(false);
+      } else {
+        return Promise.resolve(true);
+      }
+    });
+  }
+
+  public updateUser(user: IUser): Promise<Number> {
+    return this.persistenceService.updateUserTrans(user);
   }
 }
