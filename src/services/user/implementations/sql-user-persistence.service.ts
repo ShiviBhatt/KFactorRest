@@ -45,12 +45,12 @@ export class UsersPersistenceService implements IUsersPersistenceService {
       from users
       where user_src_id = :userUid
       `;
-      return this.sqlDataDriver.querySingle<IUser>(sql, params).then(result => {
-        if (!result) {
-          throw new NotFoundError(`User do not exists`);
-        }
-        return result;
-      });
+    return this.sqlDataDriver.querySingle<IUser>(sql, params).then(result => {
+      if (!result) {
+        throw new NotFoundError(`User do not exists`);
+      }
+      return result;
+    });
   }
 
   public createUserTrans(user: IUser): Promise<Number> {
