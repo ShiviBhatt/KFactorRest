@@ -3,5 +3,5 @@ import { ISqlTransaction } from 'pbis-common';
 
 export interface IQuizPersistenceService {
   createQuizTrans(quiz: any): Promise<any>;
-  getQuiz(): Promise<any>;
+  getQuiz(topic: string): Promise<any>;
 }

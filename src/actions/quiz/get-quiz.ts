@@ -7,8 +7,7 @@ import {
   BadRequestError,
   USER_TYPE_TEACHER
 } from 'pbis-common';
-/* import { IInterventionSummary } from '../../models';
-import { IInterventionService } from '../../services/intervention'; */
+import { IQuizService } from '../../services/quiz';
 import * as validate from '../../services/validation';
 import * as uidUtil from 'library-uid';
 
@@ -17,11 +16,7 @@ export function getQuizRouteHandler(req: IAuthenticatedRequest, res: exp.Respons
   const log = iocContainer.get<ILoggerFactory>(Symbol.for('ILoggerFactory')).getLogger('action.quiz.getQuizRouteHandler');
 
   // Parse params
-  let userUid = req.params.uid.trim();
-  if (!validate.isValidUid(userUid)) {
-    res.status(400).send('Invalid intervention uid');
-    return;
-  }
+  let topic = req.params.topic.trim();
   //interventionUid = uidUtil.addDashes(interventionUid);
 
   //TODO: Discuss if we need userType validation
@@ -30,10 +25,9 @@ export function getQuizRouteHandler(req: IAuthenticatedRequest, res: exp.Respons
     return;
   } */
 
-  //TODO: call service
-  /* let interventionService = iocContainer.get<IInterventionService>(Symbol.for('IInterventionService'));
-  interventionService.getIntervention(districtUid, interventionUid)
-    .then((results: IInterventionSummary) => {
+  let quizService = iocContainer.get<IQuizService>(Symbol.for('IQuizService'));
+  quizService.getQuiz(topic)
+    .then((results: any) => {
       return res.type('json').send(results);
     })
     .catch((error) => {
@@ -47,5 +41,5 @@ export function getQuizRouteHandler(req: IAuthenticatedRequest, res: exp.Respons
         log.error(error);
         res.status(500).send(error);
       }
-    }); */
+    });
 }
