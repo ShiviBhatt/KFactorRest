@@ -13,6 +13,7 @@ import * as deleteUserRoute from './delete-user';
 import * as checkUserExistsRoute from './check-user-exists';
 import * as showPopUpRoute from './show-pop-up';
 import * as getUCUserRoute from './get-UC-User';
+import * as getUserByUidRoute from './get-user-by-uid';
 import { checkUserExistsHandler } from './check-user-exists';
 import { showPopUpHandler } from './show-pop-up';
 
@@ -123,5 +124,12 @@ export function init(app: exp.Application, kernel: Kernel): void {
     middleware.authenticatedMiddlewares(mustBeAuthenticated),
     (req: IAuthenticatedRequest, res: exp.Response) => {
       getUCUserRoute.getUCUserRouteHandler(req, res);
+    });
+
+  app.get(
+    `/quizUp/v1/user/:userUid`,
+    middleware.authenticatedMiddlewares(mustBeAuthenticated),
+    (req: IAuthenticatedRequest, res: exp.Response) => {
+      getUserByUidRoute.getUserByUidHandler(req, res);
     });
 }

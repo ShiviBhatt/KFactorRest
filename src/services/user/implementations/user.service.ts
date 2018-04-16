@@ -35,6 +35,13 @@ export class UsersService implements IUsersService {
     return this.persistenceService.getUsers();
   }
 
+  public getUserByUid(userUid: string): Promise<IUser> {
+    if (!validate.isValidUid(userUid)) {
+      return Promise.reject(new BadRequestError('Invalid userUid was passed'));
+    }
+    return this.persistenceService.getUserByUid(userUid);
+  }
+
   public createUser(user: IUser): Promise<Number> {
     //TODO: Call unified service, not req as UI will call this service and post data
     return this.persistenceService.createUserTrans(user);

@@ -11,4 +11,5 @@ export interface IUsersService {
   checkUserExistOrNot(userUid: string): Promise<Boolean>;
   showPopUpOrNot(userUid: string): Promise<Boolean>;
   updateUser(user: IUser): Promise<Number>;
+  getUserByUid(userUid: string): Promise<IUser>;
 }

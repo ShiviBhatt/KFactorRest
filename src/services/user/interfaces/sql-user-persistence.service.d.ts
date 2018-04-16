@@ -10,4 +10,5 @@ export interface IUsersPersistenceService {
   checkUserExistOrNot(userUid: string): Promise<Number>;
   showPopUpOrNot(userUid: string): Promise<Number>;
   updateUserTrans(user: IUser): Promise<Number>;
+  getUserByUid(userUid: string): Promise<IUser>;
 }

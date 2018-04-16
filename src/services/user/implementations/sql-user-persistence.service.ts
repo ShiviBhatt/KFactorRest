@@ -23,7 +23,7 @@ export class UsersPersistenceService implements IUsersPersistenceService {
     let params = {};
     let sql = `
         select 
-        user_src_id,user_name,grade_level,grade_name,school_name,age,gender,dob,topics_int,show_flag
+        user_src_id,source,user_name,grade_level,grade_name,school_name,age,gender,dob,topics_int,show_flag
         from users
         `;
 
@@ -33,6 +33,24 @@ export class UsersPersistenceService implements IUsersPersistenceService {
       }
       return results;
     });
+  }
+
+  public getUserByUid(userUid: string): Promise<IUser> {
+    let params = {
+      userUid: userUid
+    };
+    let sql = `
+      select
+      id,user_src_id,source,user_name,grade_level,grade_name,school_name,age,gender,dob,topics_int,show_flag
+      from users
+      where user_src_id = :userUid
+      `;
+      return this.sqlDataDriver.querySingle<IUser>(sql, params).then(result => {
+        if (!result) {
+          throw new NotFoundError(`User do not exists`);
+        }
+        return result;
+      });
   }
 
   public createUserTrans(user: IUser): Promise<Number> {
