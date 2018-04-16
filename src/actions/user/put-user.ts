@@ -31,7 +31,7 @@ export function putUserRouteHandler(req: IAuthenticatedRequest, res: exp.Respons
   let userService = iocContainer.get<IUsersService>(Symbol.for('IUsersService'));
   userService.updateUser(user)
     .then((results: number) => {
-      return res.status(201).type('json').sendStatus(results);
+      return res.status(201).type('json').send(results.toString());
     })
     .catch((error) => {
       if (error instanceof NotFoundError) {

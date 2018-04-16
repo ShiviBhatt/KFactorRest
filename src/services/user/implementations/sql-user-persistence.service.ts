@@ -139,7 +139,7 @@ export class UsersPersistenceService implements IUsersPersistenceService {
         return trans.commit();
       })
       .then(() => {
-        return 1;
+        return Promise.resolve(1);
       })
       .catch((error) => {
         if (trans) {
@@ -178,9 +178,9 @@ export class UsersPersistenceService implements IUsersPersistenceService {
                     user_name   = :user_name,
                WHERE  user_src_id = :user_src_id`;
     return trans.querySingle(sql, params)
-      .then((result) => {
+      .then(() => {
         //TODO: Fix return value after adding stored procedures
-        return 1; //result[0].id;
+        return Promise.reject(1); //result[0].id;
       });
   }
 }
