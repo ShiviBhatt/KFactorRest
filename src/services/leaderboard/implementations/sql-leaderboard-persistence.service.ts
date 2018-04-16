@@ -14,14 +14,14 @@ export class LeaderboardPersistenceService implements ILeaderboardPersistenceSer
   private log: ILogger;
   constructor(
     @inject(Symbol.for('ILoggerFactory')) loggerFactory: ILoggerFactory,
-    @inject(Symbol.for('ISqlDataDriverLeaderboard')) private sqlDataDriver: ISqlDataDriver,
+    @inject(Symbol.for('ISqlDataDriverQuizUp')) private sqlDataDriver: ISqlDataDriver,
   ) {
     this.log = loggerFactory.getLogger('services.leaderboardPersistenceService');
   }
 
-  public getLeaderboard(): Promise<IUser[]> {
-        let params = {};
-        let sql = `
+  public getLeaderboardByScores(): Promise<any> {
+    let params = {};
+    let sql = `
         SELECT user_name,grade_level,grade_name,school_name
         FROM leaderboard l
          INNER JOIN users u ON l.user_id = u.id
@@ -29,15 +29,33 @@ export class LeaderboardPersistenceService implements ILeaderboardPersistenceSer
          LIMIT 10
         `;
 
-        return this.sqlDataDriver.query<IUser>(sql, params).then(results => {
-          if (!results) {
-            throw new NotFoundError(`Leaderboard is empty`);
-          }
-          return results;
-        });
+    return this.sqlDataDriver.query<IUser>(sql, params).then(results => {
+      if (!results) {
+        throw new NotFoundError(`Leaderboard is empty`);
+      }
+      return results;
+    });
+  }
+
+  public getLeaderboardByWins(): Promise<any> {
+    let params = {};
+    let sql = `
+    SELECT user_name,grade_level,grade_name,school_name
+    FROM leaderboard l
+     INNER JOIN users u ON l.user_id = u.id
+     ORDER BY challenges_won DESC
+     LIMIT 10
+    `;
+
+    return this.sqlDataDriver.query<IUser>(sql, params).then(results => {
+      if (!results) {
+        throw new NotFoundError(`Leaderboard is empty`);
+      }
+      return results;
+    });
   }
 
   createLeaderboardTrans(leaderboard: ILeaderboard): Promise<ILeaderboard> {
-        return Promise.resolve(leaderboard);
+    return Promise.resolve(leaderboard);
   }
 }

@@ -29,8 +29,12 @@ export class LeaderboardService implements ILeaderboardService {
     this.log = loggerFactory.getLogger('services.leaderboardService');
   }
 
-  public getLeaderboard(): Promise<IUser[]> {
-    return this.persistenceService.getLeaderboard();
+  public getLeaderboardByWins(): Promise<any> {
+    return this.persistenceService.getLeaderboardByWins();
+  }
+
+  public getLeaderboardByScores(): Promise<any> {
+    return this.persistenceService.getLeaderboardByScores();
   }
 
   public createLeaderboard(leaderboard: ILeaderboard): Promise<ILeaderboard> {

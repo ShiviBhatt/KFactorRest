@@ -86,6 +86,18 @@ function bindUserStatsService(iocContainer: Kernel): void {
   iocContainer.bind<IUserStatsPersistenceService>(Symbol.for('IUserStatsPersistenceService')).to(UserStatsPersistenceService);
 }
 
+import {
+  LeaderboardService,
+  ILeaderboardService,
+  ILeaderboardPersistenceService,
+  LeaderboardPersistenceService
+} from './services/leaderboard';
+
+function bindLeaderboardService(iocContainer: Kernel): void {
+  iocContainer.bind<ILeaderboardService>(Symbol.for('ILeaderboardService')).to(LeaderboardService);
+  iocContainer.bind<ILeaderboardPersistenceService>(Symbol.for('ILeaderboardPersistenceService')).to(LeaderboardPersistenceService);
+}
+
 /* // SPECIALEDUCATION SERVICE
 import {
   ISpecialEducationService,
@@ -144,6 +156,7 @@ export function bindRequestIocConfig(iocContainer: Kernel): void {
   bindInterventionService(iocContainer);
   bindUnifiedSchemaService(iocContainer);
   bindUserStatsService(iocContainer);
+  bindLeaderboardService(iocContainer);
   //bindSpecialEducationService(iocContainer);
   //bindEntityService(iocContainer);
   //bindEntityDistrict(iocContainer);

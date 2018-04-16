@@ -6,5 +6,6 @@ import {
 
 export interface ILeaderboardPersistenceService {
   createLeaderboardTrans(leaderboard: ILeaderboard): Promise<ILeaderboard>;
-  getLeaderboard(): Promise<IUser[]>;
+  getLeaderboardByWins(): Promise<any>;
+  getLeaderboardByScores(): Promise<any>;
 }

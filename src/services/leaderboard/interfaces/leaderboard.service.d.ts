@@ -7,5 +7,6 @@ import {
 
 export interface ILeaderboardService {
   createLeaderboard(leaderboard: ILeaderboard): Promise<ILeaderboard>;
-  getLeaderboard(): Promise<IUser[]>;
+  getLeaderboardByWins(): Promise<any>;
+  getLeaderboardByScores(): Promise<any>;
 }

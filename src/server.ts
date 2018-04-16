@@ -10,6 +10,7 @@ import * as exp from 'express';
 import * as utils from './actions/utils';
 import * as user from './actions/user';
 import * as userStats from './actions/user-stats';
+import * as leaderboard from './actions/leaderboard';
 import * as swagger from './swagger';
 import * as cors from 'cors';
 
@@ -21,6 +22,7 @@ let initRoutes = function (): void {
   utils.init(app, kernel);
   user.init(app, kernel);
   userStats.init(app, kernel);
+  leaderboard.init(app, kernel);
   swagger.init(app);
 };
 
