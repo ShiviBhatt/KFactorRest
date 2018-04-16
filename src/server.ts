@@ -8,19 +8,19 @@ import {
 
 import * as exp from 'express';
 import * as utils from './actions/utils';
-import * as intervention from './actions/intervention';
+import * as user from './actions/user';
 import * as swagger from './swagger';
 
 const app = exp();
 
 let initRoutes = function (): void {
   utils.init(app, kernel);
-  intervention.init(app, kernel);
+  user.init(app, kernel);
   swagger.init(app);
 };
 
 const appConfig: IApplicationConfig = {
-  applicationName: 'interventions',
+  applicationName: 'quizUp',
   port: Config.getRequired<number>('port'),
   ui: Config.getRequired<IUIConfig>('ui'),
   rootIocContainer: kernel,

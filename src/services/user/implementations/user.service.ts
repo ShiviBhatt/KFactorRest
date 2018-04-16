@@ -16,16 +16,16 @@ import {
 } from '../../../models';
 import { IUnifiedSchemaService } from '../../unified-schema';
 import * as validate from '../../validation';
-import { IUserPersistenceService, IUserService } from '../interfaces';
+import { IUsersPersistenceService, IUsersService } from '../interfaces';
 
 @injectable()
-export class UserService implements IUserService {
+export class UsersService implements IUsersService {
 
   private log: ILogger;
 
   constructor(
     @inject(Symbol.for('ILoggerFactory')) loggerFactory: ILoggerFactory,
-    @inject(Symbol.for('IUserPersistenceService')) private persistenceService: IUserPersistenceService,
+    @inject(Symbol.for('IUsersPersistenceService')) private persistenceService: IUsersPersistenceService,
     @inject(Symbol.for('IUnifiedSchemaService')) private unifiedSchemaService: IUnifiedSchemaService) {
 
     this.log = loggerFactory.getLogger('services.userService');

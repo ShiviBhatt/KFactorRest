@@ -5,7 +5,7 @@ import {
   IUser
 } from '../../../models';
 
-export interface IUserService {
+export interface IUsersService {
   createUser(user: IUser): Promise<Number>;
   getUsers(): Promise<IUser[]>;
   checkUserExistOrNot(userUid: string): Promise<Boolean>;

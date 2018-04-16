@@ -7,8 +7,8 @@ import {
   BadRequestError,
   USER_TYPE_TEACHER
 } from 'pbis-common';
-/* import { IInterventionSummary } from '../../models';
-import { IInterventionService } from '../../services/intervention'; */
+import { IUser } from '../../models';
+import { IUsersService } from '../../services/user';
 import * as validate from '../../services/validation';
 import * as uidUtil from 'library-uid';
 
@@ -17,11 +17,11 @@ export function getUserRouteHandler(req: IAuthenticatedRequest, res: exp.Respons
   const log = iocContainer.get<ILoggerFactory>(Symbol.for('ILoggerFactory')).getLogger('action.user.getUserRouteHandler');
 
   // Parse params
-  let userUid = req.params.uid.trim();
+  /* let userUid = req.params.uid.trim();
   if (!validate.isValidUid(userUid)) {
     res.status(400).send('Invalid intervention uid');
     return;
-  }
+  } */
   //interventionUid = uidUtil.addDashes(interventionUid);
 
   //TODO: Discuss if we need userType validation
@@ -30,10 +30,9 @@ export function getUserRouteHandler(req: IAuthenticatedRequest, res: exp.Respons
     return;
   } */
 
-  //TODO: call service
-  /* let interventionService = iocContainer.get<IInterventionService>(Symbol.for('IInterventionService'));
-  interventionService.getIntervention(districtUid, interventionUid)
-    .then((results: IInterventionSummary) => {
+  let userService = iocContainer.get<IUsersService>(Symbol.for('IUsersService'));
+  userService.getUsers()
+    .then((results: IUser[]) => {
       return res.type('json').send(results);
     })
     .catch((error) => {
@@ -47,5 +46,5 @@ export function getUserRouteHandler(req: IAuthenticatedRequest, res: exp.Respons
         log.error(error);
         res.status(500).send(error);
       }
-    }); */
+    });
 }

@@ -7,14 +7,14 @@ import { ISqlDataDriver, ISqlTransaction, NotFoundError } from 'pbis-common';
 import {
   IUser
 } from '../../../models';
-import { IUserPersistenceService } from '../interfaces';
+import { IUsersPersistenceService } from '../interfaces';
 import * as validate from '../../validation';
 @injectable()
-export class UserPersistenceService implements IUserPersistenceService {
+export class UsersPersistenceService implements IUsersPersistenceService {
   private log: ILogger;
   constructor(
     @inject(Symbol.for('ILoggerFactory')) loggerFactory: ILoggerFactory,
-    @inject(Symbol.for('ISqlDataDriverUser')) private sqlDataDriver: ISqlDataDriver,
+    @inject(Symbol.for('ISqlDataDriverQuizUp')) private sqlDataDriver: ISqlDataDriver,
   ) {
     this.log = loggerFactory.getLogger('services.userPersistenceService');
   }
@@ -40,7 +40,7 @@ export class UserPersistenceService implements IUserPersistenceService {
     return this.sqlDataDriver.createTransaction()
       .then((xact) => {
         trans = xact;
-        return this.addUser(trans, user);
+        return this.createUser(trans, user);
       })
       .then(() => {
         return trans.commit();

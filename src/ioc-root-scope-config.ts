@@ -10,7 +10,7 @@ export let kernel = new Kernel();
 //Add injectables to kernel
 
 //GENERAL
-kernel.bind(INJECTABLE_SERVICE_NAME).toConstantValue('interventions-api');
+kernel.bind(INJECTABLE_SERVICE_NAME).toConstantValue('quizUp');
 
 //LOGGER
 import {
@@ -34,9 +34,9 @@ const log: ILogger = kernel.get<ILoggerFactory>(Symbol.for('ILoggerFactory')).ge
 import * as mysql from 'mysql';
 import { IPoolConfig } from 'mysql';
 import { ISqlDataDriver, MySqlDataDriver } from 'pbis-common';
-const interventionSqlConfig = Config.getRequired<IPoolConfig>('dbConfigIntervention');
+const quizUpSqlConfig = Config.getRequired<IPoolConfig>('dbConfigQuizUp');
 const unifiedSchemaSqlConfig = Config.getRequired<IPoolConfig>('dbConfigUnifiedSchema');
-kernel.bind<ISqlDataDriver>(Symbol.for('ISqlDataDriverIntervention')).toConstantValue(new MySqlDataDriver(mysql.createPool(interventionSqlConfig)));
+kernel.bind<ISqlDataDriver>(Symbol.for('ISqlDataDriverQuizUp')).toConstantValue(new MySqlDataDriver(mysql.createPool(quizUpSqlConfig)));
 kernel.bind<ISqlDataDriver>(Symbol.for('ISqlDataDriverUnifiedSchema')).toConstantValue(new MySqlDataDriver(mysql.createPool(unifiedSchemaSqlConfig)));
 
 //REDIS CACHE

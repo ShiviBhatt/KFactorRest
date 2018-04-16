@@ -62,16 +62,29 @@ function bindUserService(iocContainer: Kernel): void {
   }
 }
 
-/* import {
-  InterventionService,
-  IInterventionService,
-  IInterventionPersistenceService,
-  InterventionPersistenceService
-} from './services/intervention';
+import {
+  UsersService,
+  IUsersService,
+  IUsersPersistenceService,
+  UsersPersistenceService
+} from './services/user';
 
 function bindInterventionService(iocContainer: Kernel): void {
-  iocContainer.bind<IInterventionService>(Symbol.for('IInterventionService')).to(InterventionService);
-  iocContainer.bind<IInterventionPersistenceService>(Symbol.for('IInterventionPersistenceService')).to(InterventionPersistenceService);
+  iocContainer.bind<IUsersService>(Symbol.for('IUsersService')).to(UsersService);
+  iocContainer.bind<IUsersPersistenceService>(Symbol.for('IUsersPersistenceService')).to(UsersPersistenceService);
+}
+
+/* // SPECIALEDUCATION SERVICE
+import {
+  ISpecialEducationService,
+  ISpecialEducationServiceConfig,
+  SpecialEducationService,
+  SpecialEducationServiceConfig
+} from './services/special-education';
+
+function bindSpecialEducationService(iocContainer: Kernel): void {
+  iocContainer.bind<ISpecialEducationService>(Symbol.for('ISpecialEducationService')).to(SpecialEducationService);
+  iocContainer.bind<ISpecialEducationServiceConfig>(Symbol.for('ISpecialEducationServiceConfig')).to(SpecialEducationServiceConfig);
 }
  */
 // UNIFIEDSCHEMA SERVICE
@@ -84,10 +97,41 @@ function bindUnifiedSchemaService(iocContainer: Kernel): void {
   iocContainer.bind<IUnifiedSchemaService>(Symbol.for('IUnifiedSchemaService')).to(UnifiedSchemaService);
 }
 
+/* //ENTITY SERVICE
+import {
+  IEntityService,
+  IEntityServiceConfig,
+  EntityService
+} from './services/entity';
+
+function bindEntityService(iocContainer: Kernel): void {
+  iocContainer.bind<IEntityService>(Symbol.for('IEntityService')).to(EntityService);
+  iocContainer.bind<IEntityServiceConfig>(Symbol.for('IEntityServiceConfig')).toConstantValue({
+    serviceUrl: ServicesConfig.getAsUrl('entityservice') + '/entity'
+  });
+}
+
+//ENTITY DISTRICT
+import {
+  IEntityDistrict,
+  IEntityDistrictConfig,
+  EntityDistrict
+} from './services/entity-district';
+
+function bindEntityDistrict(iocContainer: Kernel): void {
+  iocContainer.bind<IEntityDistrict>(Symbol.for('IEntityDistrict')).to(EntityDistrict);
+  iocContainer.bind<IEntityDistrictConfig>(Symbol.for('IEntityDistrictConfig')).toConstantValue({
+    serviceUrl: ServicesConfig.getAsUrl('entitydistrict')
+  });
+} */
+
 export function bindRequestIocConfig(iocContainer: Kernel): void {
   bindHttpService(iocContainer);
   bindOpenIdConnect(iocContainer);
   bindUserService(iocContainer);
-  //bindInterventionService(iocContainer);
+  bindInterventionService(iocContainer);
   bindUnifiedSchemaService(iocContainer);
+  //bindSpecialEducationService(iocContainer);
+  //bindEntityService(iocContainer);
+  //bindEntityDistrict(iocContainer);
 }

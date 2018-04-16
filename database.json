@@ -4,7 +4,7 @@
     "user": "dev",
     "password": "test",
     "host": "localhost",
-    "database": "quizUp",
+    "database": "k_factor",
     "multipleStatements": true
   },
   "test": {
@@ -12,7 +12,7 @@
     "user": "dev",
     "password": "test",
     "host": "localhost",
-    "database": "quizUp",
+    "database": "k_factor",
     "multipleStatements": true
   },
   "prod": {

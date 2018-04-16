@@ -4,7 +4,7 @@ import {
   IUser
 } from '../../../models';
 
-export interface IUserPersistenceService {
+export interface IUsersPersistenceService {
   createUserTrans(user: IUser): Promise<Number>;
   getUsers(): Promise<IUser[]>;
   checkUserExistOrNot(userUid: string): Promise<Number>;

@@ -74,7 +74,7 @@ export function init(app: exp.Application, kernel: Kernel): void {
    *       200:
    *         description: List of users
    *         schema:
-   *           $ref: '#/definitions/InterventionSummary'
+   *           $ref: '#/definitions/Users'
    *     tags:
    *       - User
    */
@@ -85,32 +85,6 @@ export function init(app: exp.Application, kernel: Kernel): void {
       getUserRoute.getUserRouteHandler(req, res);
     });
 
-  //TODO: Fix this swagger comment
-  /**
-   * @swagger
-   * /quizUp/v1/user/student/{studentUid}:
-   *   get:
-   *     description: Gets a list of interventions for a student
-   *     security:
-   *       - Bearer: []
-   *     produces:
-   *       - application/json
-   *     parameters:
-   *       - name: studentUid
-   *         in: path
-   *         description: The studentUid of the student
-   *         required: true
-   *         type: string
-   *     responses:
-   *       200:
-   *         description: A list of interventions for the student
-   *         schema:
-   *            $ref: '#/definitions/InterventionSummaries'
-   *       400:
-   *         description: Invalid student uid
-   *     tags:
-   *       - Intervention
-   */
   app.put(
     '/quizUp/v1/user/:userUid',
     middleware.authenticatedMiddlewares(mustBeAuthenticated),
@@ -118,34 +92,6 @@ export function init(app: exp.Application, kernel: Kernel): void {
       putUserRoute.putUserRouteHandler(req, res);
     });
 
-  //TODO: Fix this comment
-  /**
-   * @swagger
-   * /interventions/v1/intervention/studentgroup/{studentGroupUid}:
-   *   get:
-   *     description: Gets a list of interventions for a student group
-   *     security:
-   *       - Bearer: []
-   *     consumes:
-   *       - application/json
-   *     produces:
-   *       - application/json
-   *     parameters:
-   *       - name: studentGroupUid
-   *         in: path
-   *         description: The studentGroupUid of the student group
-   *         required: true
-   *         type: string
-   *     responses:
-   *       200:
-   *         description: A list of interventions for the student group
-   *         schema:
-   *            $ref: '#/definitions/InterventionSummaries'
-   *       400:
-   *         description: Invalid student group uid
-   *     tags:
-   *       - Intervention
-   */
   app.delete(
     '/quizUp/v1/user/:userUid',
     middleware.authenticatedMiddlewares(mustBeAuthenticated),
