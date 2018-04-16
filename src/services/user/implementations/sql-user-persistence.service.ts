@@ -175,12 +175,12 @@ export class UsersPersistenceService implements IUsersPersistenceService {
     let sql = `UPDATE users 
                SET  topics_int  = :topics_int,
                     show_flag   = :show_flag,
-                    user_name   = :user_name,
+                    user_name   = :user_name
                WHERE  user_src_id = :user_src_id`;
     return trans.querySingle(sql, params)
       .then(() => {
         //TODO: Fix return value after adding stored procedures
-        return Promise.reject(1); //result[0].id;
+        return Promise.resolve(1); //result[0].id;
       });
   }
 }
