@@ -56,29 +56,6 @@ export class UserPersistenceService implements IUserPersistenceService {
       });
   }
 
-  private createUser(trans: ISqlTransaction, user: IUser): Promise<number> {
-    if (!user) {
-      return Promise.reject(new Error('User object is required'));
-    }
-    let sql = `INSERT INTO users (user_src_id,source,user_name,grade_level,grade_name,school_name,dob,topics_int,show_flag)
-                   VALUES ( '${user.userSrcId}',
-                            '${user.source}',
-                            '${user.userName}',
-                            '${user.gradeLevel}',
-                            '${user.gradeName}',
-                            '${user.schoolName}',
-                            '${user.dateOfBirth}',
-                            '${user.interestTopics}',
-                            '${user.showFlag}' 
-                          );`;
-    let params = {};
-    return trans.querySingle(sql, params)
-      .then((result) => {
-        //TODO: Fix return value after adding stored procedures
-        return 1; //result[0].id;
-      });
-  }
-
   public checkUserExistOrNot(userUid: string): Promise<Number> {
     let params = {
       userUid: userUid
@@ -134,6 +111,28 @@ export class UserPersistenceService implements IUserPersistenceService {
       });
   }
 
+  private createUser(trans: ISqlTransaction, user: IUser): Promise<number> {
+    if (!user) {
+      return Promise.reject(new Error('User object is required'));
+    }
+    let sql = `INSERT INTO users (user_src_id,source,user_name,grade_level,grade_name,school_name,dob,topics_int,show_flag)
+                   VALUES ( '${user.userSrcId}',
+                            '${user.source}',
+                            '${user.userName}',
+                            '${user.gradeLevel}',
+                            '${user.gradeName}',
+                            '${user.schoolName}',
+                            '${user.dateOfBirth}',
+                            '${user.interestTopics}',
+                            '${user.showFlag}' 
+                          );`;
+    let params = {};
+    return trans.querySingle(sql, params)
+      .then((result) => {
+        //TODO: Fix return value after adding stored procedures
+        return 1; //result[0].id;
+      });
+  }
   private updateUser(trans: ISqlTransaction, user: IUser): Promise<number> {
     if (!user) {
       return Promise.reject(new Error('User object is required'));

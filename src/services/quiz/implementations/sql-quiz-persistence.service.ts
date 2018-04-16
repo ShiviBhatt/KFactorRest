@@ -30,7 +30,7 @@ export class QuizPersistenceService implements IQuizPersistenceService {
         inner join quiz_question b on b.quiz_id=a.id
         inner join question_dm c on b.question_id=c.id
         inner join option_dm d on c.id = d.question_id
-        where b.quiz_id = ${quizId}
+        where b.quiz_id = :quizId
       `;
       return this.sqlDataDriver.query<any>(sql, params).then(results => {
         if (!results) {
