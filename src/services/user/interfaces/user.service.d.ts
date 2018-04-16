@@ -12,4 +12,5 @@ export interface IUsersService {
   showPopUpOrNot(userUid: string): Promise<Boolean>;
   updateUser(user: IUser): Promise<Number>;
   getUserByUid(userUid: string): Promise<IUser>;
+  getUserByFilters(gradeName: string, schoolName: string, userName: string): Promise<IUser[]>;
 }

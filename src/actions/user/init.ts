@@ -14,7 +14,7 @@ import * as checkUserExistsRoute from './check-user-exists';
 import * as showPopUpRoute from './show-pop-up';
 import * as getUCUserRoute from './get-UC-User';
 import * as getUserByUidRoute from './get-user-by-uid';
-import { checkUserExistsHandler } from './check-user-exists';
+import * as getUserByFiltersRoute from './get-user-by-filters';
 import { showPopUpHandler } from './show-pop-up';
 
 export function init(app: exp.Application, kernel: Kernel): void {
@@ -131,5 +131,12 @@ export function init(app: exp.Application, kernel: Kernel): void {
     middleware.authenticatedMiddlewares(mustBeAuthenticated),
     (req: IAuthenticatedRequest, res: exp.Response) => {
       getUserByUidRoute.getUserByUidHandler(req, res);
+    });
+
+  app.get(
+    `/quizUp/v1/user/filters/:gradeName/:schoolName/:userName`,
+    middleware.authenticatedMiddlewares(mustBeAuthenticated),
+    (req: IAuthenticatedRequest, res: exp.Response) => {
+      getUserByFiltersRoute.getUserByFiltersHandler(req, res);
     });
 }

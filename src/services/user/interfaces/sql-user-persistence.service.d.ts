@@ -11,4 +11,5 @@ export interface IUsersPersistenceService {
   showPopUpOrNot(userUid: string): Promise<Number>;
   updateUserTrans(user: IUser): Promise<Number>;
   getUserByUid(userUid: string): Promise<IUser>;
+  getUserByFilters(gradeName: string, schoolName: string, userName: string): Promise<IUser[]>;
 }

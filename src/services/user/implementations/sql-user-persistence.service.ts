@@ -53,6 +53,24 @@ export class UsersPersistenceService implements IUsersPersistenceService {
     });
   }
 
+  public getUserByFilters(gradeName: string, schoolName: string, userName: string): Promise<IUser[]> {
+    let params = {
+      gradeName: gradeName,
+      schoolName: schoolName,
+      userName: userName
+    };
+    let sql = `
+    SELECT * FROM users
+    WHERE (grade_name= :gradeName OR 'ALL'= :gradeName) AND (school_name= :schoolName OR 'ALL'= :schoolName) AND (user_name REGEXP (:userName))
+    `;
+    return this.sqlDataDriver.query<IUser>(sql, params).then(result => {
+      if (!result) {
+        throw new NotFoundError(`User do not exists`);
+      }
+      return result;
+    });
+  }
+
   public createUserTrans(user: IUser): Promise<Number> {
     let trans: ISqlTransaction;
     return this.sqlDataDriver.createTransaction()
@@ -135,7 +153,7 @@ export class UsersPersistenceService implements IUsersPersistenceService {
     if (!user) {
       return Promise.reject(new Error('User object is required'));
     }
-    let params = {
+    /* let params = {
       user_src_id: user.user_src_id,
       source: user.source,
       user_name: user.user_name,
@@ -145,14 +163,17 @@ export class UsersPersistenceService implements IUsersPersistenceService {
       dob: user.dob,
       topics_int: user.topics_int,
       show_flag: user.show_flag
-    };
+    }; */
+    let params = {};
     //console.log('inside createUser : user', JSON.stringify( user));
-    let sql = `INSERT INTO users (user_src_id,source,user_name,grade_level,grade_name,school_name,dob,topics_int,show_flag)
-                   VALUES (:user_src_id,:source,:user_name,:grade_level,:grade_name,:school_name,:dob,:topics_int,:show_flag)`;
+    /* let sql = `INSERT INTO users (user_src_id,source,user_name,grade_level,grade_name,school_name,dob,topics_int,show_flag)
+                   VALUES (:user_src_id,:source,:user_name,:grade_level,:grade_name,:school_name,:dob,:topics_int,:show_flag);`; */
+    let sql = `INSERT INTO users (user_src_id,source,user_name,grade_level,grade_name,school_name,dob,topics_int,show_flag) VALUES ('${user.user_src_id}','${user.source}','${user.user_name}','${user.grade_level}','${user.grade_name}','${user.school_name}','${user.dob}','${user.topics_int}','${user.show_flag}');`;
     console.log('sql', sql);
+    console.log('params', params);
     return trans.querySingle(sql, params)
       .then((result) => {
-        //console.log('result: ', result);
+        console.log('result: ', result);
         //TODO: Fix return value after adding stored procedures
         return 1; //result[0].id;
       });

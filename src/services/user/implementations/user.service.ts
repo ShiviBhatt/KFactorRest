@@ -42,6 +42,10 @@ export class UsersService implements IUsersService {
     return this.persistenceService.getUserByUid(userUid);
   }
 
+  public getUserByFilters(gradeName: string, schoolName: string, userName: string): Promise<IUser[]> {
+    return this.persistenceService.getUserByFilters(gradeName, schoolName, userName);
+  }
+
   public createUser(user: IUser): Promise<Number> {
     //TODO: Call unified service, not req as UI will call this service and post data
     return this.persistenceService.createUserTrans(user);
