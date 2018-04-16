@@ -22,7 +22,7 @@ export class LeaderboardPersistenceService implements ILeaderboardPersistenceSer
   public getLeaderboardByScores(): Promise<any> {
     let params = {};
     let sql = `
-        SELECT user_name,grade_level,grade_name,school_name
+        SELECT user_name,grade_level,grade_name,school_name,total_score
         FROM leaderboard l
          INNER JOIN users u ON l.user_id = u.id
          ORDER BY total_score DESC
@@ -40,7 +40,7 @@ export class LeaderboardPersistenceService implements ILeaderboardPersistenceSer
   public getLeaderboardByWins(): Promise<any> {
     let params = {};
     let sql = `
-    SELECT user_name,grade_level,grade_name,school_name
+    SELECT user_name,grade_level,grade_name,school_name,challenges_won
     FROM leaderboard l
      INNER JOIN users u ON l.user_id = u.id
      ORDER BY challenges_won DESC
