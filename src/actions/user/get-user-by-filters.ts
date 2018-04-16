@@ -31,7 +31,9 @@ export function getUserByFiltersHandler(req: IAuthenticatedRequest, res: exp.Res
     res.status(403).send('Bad request, userType ' + req.userPersona.userType + ' is not authorised to view this intervention.');
     return;
   } */
-
+  if (userName === 'ALL') {
+    userName = '.';
+  }
   let userService = iocContainer.get<IUsersService>(Symbol.for('IUsersService'));
   userService.getUserByFilters(gradeName, schoolName, userName)
     .then((results: IUser[]) => {
