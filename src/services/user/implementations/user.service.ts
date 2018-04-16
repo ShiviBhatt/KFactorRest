@@ -81,7 +81,7 @@ export class UsersService implements IUsersService {
     });
   }
 
-  public updateUser(user: IUser): Promise<Number> {
-    return this.persistenceService.updateUserTrans(user);
+  public updateUser(user: IUser, userUid: string): Promise<Number> {
+    return this.persistenceService.updateUserTrans(user, userUid);
   }
 }

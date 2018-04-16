@@ -9,7 +9,7 @@ export interface IUsersPersistenceService {
   getUsers(): Promise<IUser[]>;
   checkUserExistOrNot(userUid: string): Promise<Number>;
   showPopUpOrNot(userUid: string): Promise<Number>;
-  updateUserTrans(user: IUser): Promise<Number>;
+  updateUserTrans(user: IUser, userUid: string): Promise<Number>;
   getUserByUid(userUid: string): Promise<IUser>;
   getUserByFilters(gradeName: string, schoolName: string, userName: string): Promise<IUser[]>;
 }

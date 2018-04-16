@@ -10,7 +10,7 @@ export interface IUsersService {
   getUsers(): Promise<IUser[]>;
   checkUserExistOrNot(userUid: string): Promise<Boolean>;
   showPopUpOrNot(userUid: string): Promise<Boolean>;
-  updateUser(user: IUser): Promise<Number>;
+  updateUser(user: IUser, userUid: string): Promise<Number>;
   getUserByUid(userUid: string): Promise<IUser>;
   getUserByFilters(gradeName: string, schoolName: string, userName: string): Promise<IUser[]>;
 }

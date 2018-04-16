@@ -20,6 +20,7 @@ export function putUserRouteHandler(req: IAuthenticatedRequest, res: exp.Respons
   const log = iocContainer.get<ILoggerFactory>(Symbol.for('ILoggerFactory')).getLogger('action.user.putUserRouteHandler');
 
   let user: IUser = req.body;
+  let userUid = req.params.userUid.trim();
   let errors = [];
   //console.log('user', JSON.stringify( user));
   //TODO: Discuss if we need userType validation
@@ -29,7 +30,7 @@ export function putUserRouteHandler(req: IAuthenticatedRequest, res: exp.Respons
   } */
 
   let userService = iocContainer.get<IUsersService>(Symbol.for('IUsersService'));
-  userService.updateUser(user)
+  userService.updateUser(user, userUid)
     .then((results: number) => {
       return res.status(201).type('json').send(results.toString());
     })

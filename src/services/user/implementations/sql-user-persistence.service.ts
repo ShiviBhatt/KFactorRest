@@ -128,12 +128,12 @@ export class UsersPersistenceService implements IUsersPersistenceService {
     });
   }
 
-  public updateUserTrans(user: IUser): Promise<number> {
+  public updateUserTrans(user: IUser, userUid: string): Promise<number> {
     let trans: ISqlTransaction;
     return this.sqlDataDriver.createTransaction()
       .then((xact) => {
         trans = xact;
-        return this.updateUser(trans, user);
+        return this.updateUser(trans, user, userUid);
       })
       .then(() => {
         return trans.commit();
@@ -161,12 +161,12 @@ export class UsersPersistenceService implements IUsersPersistenceService {
         return Promise.resolve(1); //result[0].id;
       });
   }
-  private updateUser(trans: ISqlTransaction, user: IUser): Promise<number> {
+  private updateUser(trans: ISqlTransaction, user: IUser, userUid: string): Promise<number> {
     if (!user) {
       return Promise.reject(new Error('User object is required'));
     }
     let params = {};
-    let sql = `UPDATE users SET topics_int = '${user.topics_int}', show_flag = '${user.show_flag}', user_name = '${user.user_name}'`;
+    let sql = `UPDATE users SET topics_int = '${user.topics_int}', show_flag = '${user.show_flag}', user_name = '${user.user_name}' where user_src_id = '${userUid}'`;
     return trans.querySingle(sql, params)
       .then(() => {
         //TODO: Fix return value after adding stored procedures
