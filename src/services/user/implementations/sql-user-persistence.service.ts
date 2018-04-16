@@ -82,7 +82,7 @@ export class UsersPersistenceService implements IUsersPersistenceService {
         return trans.commit();
       })
       .then(() => {
-        return 1;
+        return Promise.resolve(1);
       })
       .catch((error) => {
         if (trans) {
@@ -153,29 +153,12 @@ export class UsersPersistenceService implements IUsersPersistenceService {
     if (!user) {
       return Promise.reject(new Error('User object is required'));
     }
-    /* let params = {
-      user_src_id: user.user_src_id,
-      source: user.source,
-      user_name: user.user_name,
-      grade_level: user.grade_level,
-      grade_name: user.grade_name,
-      school_name: user.school_name,
-      dob: user.dob,
-      topics_int: user.topics_int,
-      show_flag: user.show_flag
-    }; */
     let params = {};
-    //console.log('inside createUser : user', JSON.stringify( user));
-    /* let sql = `INSERT INTO users (user_src_id,source,user_name,grade_level,grade_name,school_name,dob,topics_int,show_flag)
-                   VALUES (:user_src_id,:source,:user_name,:grade_level,:grade_name,:school_name,:dob,:topics_int,:show_flag);`; */
-    let sql = `INSERT INTO users (user_src_id,source,user_name,grade_level,grade_name,school_name,dob,topics_int,show_flag) VALUES ('${user.user_src_id}','${user.source}','${user.user_name}','${user.grade_level}','${user.grade_name}','${user.school_name}','${user.dob}','${user.topics_int}','${user.show_flag}');`;
-    console.log('sql', sql);
-    console.log('params', params);
+    let sql = `INSERT INTO users (user_src_id,source,user_name,grade_level,grade_name,school_name,dob,topics_int,show_flag)
+              VALUES ('${user.user_src_id}','${user.source}','${user.user_name}','${user.grade_level}','${user.grade_name}','${user.school_name}','${user.dob}','${user.topics_int}','${user.show_flag}');`;
     return trans.querySingle(sql, params)
-      .then((result) => {
-        console.log('result: ', result);
-        //TODO: Fix return value after adding stored procedures
-        return 1; //result[0].id;
+      .then(() => {
+        return Promise.resolve(1); //result[0].id;
       });
   }
   private updateUser(trans: ISqlTransaction, user: IUser): Promise<number> {
