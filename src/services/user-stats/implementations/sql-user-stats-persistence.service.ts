@@ -24,18 +24,19 @@ export class UserStatsPersistenceService implements IUserStatsPersistenceService
             userId: userId
         };
         let sql = `
-        select stats.user_id,stats.participated,stats.tie,stats.win,stats.loss,us.topics_int
-        from
-        (select sub.user_id ,SUM(participated) participated,SUM(tie) tie,SUM(win) win,SUM(loss) loss
-        from 
-        (select distinct :userId as user_id,challenge_id,
-        1 as participated
-        case when result='tie' THEN 1 else 0 end as tie,
-        case when (result='decided' or result='quit')  and winner_user_id= :userId then 1 else 0 end win,
-        case when (result='decided' or result='quit')  and winner_user_id <> :userId then 1 else 0 end loss
-        from challenge
-        where user_id= :userId or opponent_id= :userId) sub) stats
-        inner join users us on stats.user_id=us.id
+        SELECT us.id,IFNULL(stats.participated,0) AS participated,IFNULL(stats.tie,0) AS tie,IFNULL(stats.win,0) AS win,IFNULL(stats.loss,0) AS loss,us.topics_int
+        FROM
+        (SELECT sub.user_id ,SUM(participated) participated,SUM(tie) tie,SUM(win) win,SUM(loss) loss
+        FROM
+        (SELECT DISTINCT :userId AS user_id,id,
+        1 AS participated,
+        CASE WHEN result='tie' THEN 1 ELSE 0 END AS tie,
+        CASE WHEN (result='decided' OR result='quit')  AND winner_user_id= :userId THEN 1 ELSE 0 END win,
+        CASE WHEN (result='decided' OR result='quit')  AND winner_user_id <> :userId THEN 1 ELSE 0 END loss
+        FROM challenge
+        WHERE user_id= :userId OR opponent_id= :userId) AS sub) AS stats
+        RIGHT JOIN users AS us ON stats.user_id=us.id
+        WHERE  us.id=:userId
         `;
 
         return this.sqlDataDriver.querySingle<any>(sql, params).then(result => {

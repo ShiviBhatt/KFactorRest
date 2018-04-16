@@ -15,7 +15,7 @@ import * as uidUtil from 'library-uid';
 export function getUserStatsRouteHandler(req: IAuthenticatedRequest, res: exp.Response): void {
   const iocContainer = req.requestIocContainer;
   const log = iocContainer.get<ILoggerFactory>(Symbol.for('ILoggerFactory')).getLogger('action.userStats.getUserStatsRouteHandler');
-  let userId = req.params.userUid.trim();
+  let userId = req.params.userId.trim();
   let userStatsService = iocContainer.get<IUserStatsService>(Symbol.for('IUserStatsService'));
   userStatsService.getUsersStats(userId)
     .then((results: any) => {
