@@ -165,18 +165,8 @@ export class UsersPersistenceService implements IUsersPersistenceService {
     if (!user) {
       return Promise.reject(new Error('User object is required'));
     }
-    let params = {
-      topics_int: user.topics_int,
-      show_flag: user.show_flag,
-      user_name: user.user_name,
-      user_src_id: user.user_src_id
-    };
-    //topics_int=@tpcs,show_flag=@shwflg,user_name=@usr_nme;
-    let sql = `UPDATE users 
-               SET  topics_int  = :topics_int,
-                    show_flag   = :show_flag,
-                    user_name   = :user_name
-               WHERE  user_src_id = :user_src_id`;
+    let params = {};
+    let sql = `UPDATE users SET topics_int = '${user.topics_int}', show_flag = '${user.show_flag}', user_name = '${user.user_name}'`;
     return trans.querySingle(sql, params)
       .then(() => {
         //TODO: Fix return value after adding stored procedures
