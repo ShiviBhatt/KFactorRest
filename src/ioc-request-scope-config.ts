@@ -74,6 +74,18 @@ function bindInterventionService(iocContainer: Kernel): void {
   iocContainer.bind<IUsersPersistenceService>(Symbol.for('IUsersPersistenceService')).to(UsersPersistenceService);
 }
 
+import {
+  UserStatsService,
+  IUserStatsService,
+  IUserStatsPersistenceService,
+  UserStatsPersistenceService
+} from './services/user-stats';
+
+function bindUserStatsService(iocContainer: Kernel): void {
+  iocContainer.bind<IUsersService>(Symbol.for('IUserStatsService')).to(UserStatsService);
+  iocContainer.bind<IUsersPersistenceService>(Symbol.for('IUserStatsPersistenceService')).to(UserStatsPersistenceService);
+}
+
 /* // SPECIALEDUCATION SERVICE
 import {
   ISpecialEducationService,
@@ -131,6 +143,7 @@ export function bindRequestIocConfig(iocContainer: Kernel): void {
   bindUserService(iocContainer);
   bindInterventionService(iocContainer);
   bindUnifiedSchemaService(iocContainer);
+  bindUserStatsService(iocContainer);
   //bindSpecialEducationService(iocContainer);
   //bindEntityService(iocContainer);
   //bindEntityDistrict(iocContainer);

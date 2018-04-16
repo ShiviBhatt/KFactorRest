@@ -9,6 +9,7 @@ import {
 import * as exp from 'express';
 import * as utils from './actions/utils';
 import * as user from './actions/user';
+import * as userStats from './actions/user-stats';
 import * as swagger from './swagger';
 
 const app = exp();
@@ -16,6 +17,7 @@ const app = exp();
 let initRoutes = function (): void {
   utils.init(app, kernel);
   user.init(app, kernel);
+  userStats.init(app, kernel);
   swagger.init(app);
 };
 

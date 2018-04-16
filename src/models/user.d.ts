@@ -1,15 +1,15 @@
 export interface IUser {
   id?: number;
-  userSrcId?: string;
+  user_src_id?: string;
   source?: string;
-  userName: string;
-  gradeLevel?: number;
-  gradeName?: string;
-  schoolName?: string;
+  user_name: string;
+  grade_level?: number;
+  grade_name?: string;
+  school_name?: string;
   age?: string;
   gender?: string;
-  dateOfBirth?: string;
-  interestTopics?: string;
-  showFlag?: number;
+  dob?: string;
+  topics_int?: string;
+  show_flag?: number;
   //user_src_id,source,user_name,grade_level,grade_name,school_name,dob,topics_int,show_flag
 }

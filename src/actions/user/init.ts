@@ -10,6 +10,10 @@ import * as postUserRoute from './post-user';
 import * as getUserRoute from './get-user';
 import * as putUserRoute from './put-user';
 import * as deleteUserRoute from './delete-user';
+import * as checkUserExistsRoute from './check-user-exists';
+import * as showPopUpRoute from './show-pop-up';
+import { checkUserExistsHandler } from './check-user-exists';
+import { showPopUpHandler } from './show-pop-up';
 
 export function init(app: exp.Application, kernel: Kernel): void {
   const mustBeAuthenticated = kernel.get<IEnforceAuthenticationHandlerFactory>(Symbol.for('IEnforceAuthenticationHandlerFactory'));
@@ -97,5 +101,19 @@ export function init(app: exp.Application, kernel: Kernel): void {
     middleware.authenticatedMiddlewares(mustBeAuthenticated),
     (req: IAuthenticatedRequest, res: exp.Response) => {
       deleteUserRoute.deleteUserRouteHandler(req, res);
+    });
+
+  app.get(
+    `/quizUp/v1/user/checkExists/:userUid`,
+    middleware.authenticatedMiddlewares(mustBeAuthenticated),
+    (req: IAuthenticatedRequest, res: exp.Response) => {
+      checkUserExistsRoute.checkUserExistsHandler(req, res);
+    });
+
+  app.get(
+    `/quizUp/v1/user/showPopUp/:userUid`,
+    middleware.authenticatedMiddlewares(mustBeAuthenticated),
+    (req: IAuthenticatedRequest, res: exp.Response) => {
+      showPopUpRoute.showPopUpHandler(req, res);
     });
 }

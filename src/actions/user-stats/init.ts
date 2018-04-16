@@ -43,7 +43,7 @@ export function init(app: exp.Application, kernel: Kernel): void {
    *       - User
    */
   app.get(
-    `/quizUp/v1/userStats`,
+    `/quizUp/v1/userStats/:userUid`,
     middleware.authenticatedMiddlewares(mustBeAuthenticated),
     (req: IAuthenticatedRequest, res: exp.Response) => {
       getUserStatsRoute.getUserStatsRouteHandler(req, res);

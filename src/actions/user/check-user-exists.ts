@@ -5,34 +5,35 @@ import {
   ILoggerFactory,
   NotFoundError,
   BadRequestError,
-  USER_TYPE_TEACHER,
-  USER_TYPE_POWERSCHOOL_STAFF,
-  USER_TYPE_STAFF,
-  IUIConfig,
-  IUserService
+  USER_TYPE_TEACHER
 } from 'pbis-common';
 import { IUser } from '../../models';
 import { IUsersService } from '../../services/user';
 import * as validate from '../../services/validation';
 import * as uidUtil from 'library-uid';
 
-export function postUserRouteHandler(req: IAuthenticatedRequest, res: exp.Response): void {
+export function checkUserExistsHandler(req: IAuthenticatedRequest, res: exp.Response): void {
   const iocContainer = req.requestIocContainer;
-  const log = iocContainer.get<ILoggerFactory>(Symbol.for('ILoggerFactory')).getLogger('action.user.postUserRouteHandler');
+  const log = iocContainer.get<ILoggerFactory>(Symbol.for('ILoggerFactory')).getLogger('action.user.checkUserExistsHandler');
+  let userUid = req.params.userUid.trim();
+  // Parse params
+  /* let userUid = req.params.uid.trim();
+  if (!validate.isValidUid(userUid)) {
+    res.status(400).send('Invalid intervention uid');
+    return;
+  } */
+  //interventionUid = uidUtil.addDashes(interventionUid);
 
-  let user: IUser = req.body;
-  let errors = [];
-  //console.log('user', JSON.stringify( user));
   //TODO: Discuss if we need userType validation
-  /* if (!(req.userPersona.userType === USER_TYPE_STAFF || req.userPersona.userType === USER_TYPE_POWERSCHOOL_STAFF || req.userPersona.userType === USER_TYPE_TEACHER)) {
-    res.status(403).send('Bad request, userType ' + req.userPersona.userType + ' is not authorised to create a new intervention.');
+  /* if (!(req.userPersona.userType === USER_TYPE_TEACHER)) {
+    res.status(403).send('Bad request, userType ' + req.userPersona.userType + ' is not authorised to view this intervention.');
     return;
   } */
 
   let userService = iocContainer.get<IUsersService>(Symbol.for('IUsersService'));
-  userService.createUser(user)
-    .then((results: number) => {
-      return res.status(201).type('json').sendStatus(results);
+  userService.checkUserExistOrNot(userUid)
+    .then((results: boolean) => {
+      return res.type('json').send(results);
     })
     .catch((error) => {
       if (error instanceof NotFoundError) {

@@ -23,7 +23,7 @@ export class UsersPersistenceService implements IUsersPersistenceService {
     let params = {};
     let sql = `
         select 
-        user_name,grade_level,grade_name,school_name,age,gender,dob,topics_int,show_flag
+        user_src_id,user_name,grade_level,grade_name,school_name,age,gender,dob,topics_int,show_flag
         from users
         `;
 
@@ -65,10 +65,12 @@ export class UsersPersistenceService implements IUsersPersistenceService {
     FROM users
     WHERE user_src_id = :userUid AND source= 'uc'
     `;
+    //console.log('sql and params', JSON.stringify(params) + ' ' + sql);
     return this.sqlDataDriver.querySingle<Number>(sql, params).then(result => {
       /* if (!result) {
         throw new NotFoundError(`Users do not exists`);
       } */
+      //console.log('result', result);
       return result;
     });
   }
@@ -115,20 +117,24 @@ export class UsersPersistenceService implements IUsersPersistenceService {
     if (!user) {
       return Promise.reject(new Error('User object is required'));
     }
+    let params = {
+      user_src_id: user.user_src_id,
+      source: user.source,
+      user_name: user.user_name,
+      grade_level: user.grade_level,
+      grade_name: user.grade_name,
+      school_name: user.school_name,
+      dob: user.dob,
+      topics_int: user.topics_int,
+      show_flag: user.show_flag
+    };
+    //console.log('inside createUser : user', JSON.stringify( user));
     let sql = `INSERT INTO users (user_src_id,source,user_name,grade_level,grade_name,school_name,dob,topics_int,show_flag)
-                   VALUES ( '${user.userSrcId}',
-                            '${user.source}',
-                            '${user.userName}',
-                            '${user.gradeLevel}',
-                            '${user.gradeName}',
-                            '${user.schoolName}',
-                            '${user.dateOfBirth}',
-                            '${user.interestTopics}',
-                            '${user.showFlag}' 
-                          );`;
-    let params = {};
+                   VALUES (:user_src_id,:source,:user_name,:grade_level,:grade_name,:school_name,:dob,:topics_int,:show_flag)`;
+    console.log('sql', sql);
     return trans.querySingle(sql, params)
       .then((result) => {
+        //console.log('result: ', result);
         //TODO: Fix return value after adding stored procedures
         return 1; //result[0].id;
       });
@@ -137,13 +143,18 @@ export class UsersPersistenceService implements IUsersPersistenceService {
     if (!user) {
       return Promise.reject(new Error('User object is required'));
     }
+    let params = {
+      topics_int: user.topics_int,
+      show_flag: user.show_flag,
+      user_name: user.user_name,
+      user_src_id: user.user_src_id
+    };
     //topics_int=@tpcs,show_flag=@shwflg,user_name=@usr_nme;
     let sql = `UPDATE users 
-               SET  topics_int  = '${user.interestTopics}',
-                    show_flag   = '${user.showFlag}',
-                    user_name   = '${user.userName}',
-               WHERE  user_src_id = '${user.userSrcId}'`;
-    let params = {};
+               SET  topics_int  = :topics_int,
+                    show_flag   = :show_flag,
+                    user_name   = :user_name,
+               WHERE  user_src_id = :user_src_id`;
     return trans.querySingle(sql, params)
       .then((result) => {
         //TODO: Fix return value after adding stored procedures

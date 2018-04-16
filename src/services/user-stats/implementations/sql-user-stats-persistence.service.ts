@@ -14,7 +14,7 @@ export class UserStatsPersistenceService implements IUserStatsPersistenceService
   private log: ILogger;
   constructor(
     @inject(Symbol.for('ILoggerFactory')) loggerFactory: ILoggerFactory,
-    @inject(Symbol.for('ISqlDataDriverUserStats')) private sqlDataDriver: ISqlDataDriver,
+    @inject(Symbol.for('ISqlDataDriverQuizUp')) private sqlDataDriver: ISqlDataDriver,
   ) {
     this.log = loggerFactory.getLogger('services.userStatsPersistenceService');
   }
@@ -24,7 +24,7 @@ export class UserStatsPersistenceService implements IUserStatsPersistenceService
             userId: userId
         };
         let sql = `
-        select user_id ,SUM(participated) participated,SUM(tie) tie,SUM(win) win,SUM(loss) loss
+        select sub.user_id ,SUM(participated) participated,SUM(tie) tie,SUM(win) win,SUM(loss) loss
         from 
         (select distinct :userId as user_id,challenge_id,
         1 as participated

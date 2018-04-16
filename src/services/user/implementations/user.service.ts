@@ -46,7 +46,8 @@ export class UsersService implements IUsersService {
     }
     return this.persistenceService.checkUserExistOrNot(userUid)
     .then((count) => {
-      if (count > 0) {
+      let cnt = 'cnt';
+      if (count[cnt] > 0) {
         return Promise.resolve(true);
       } else {
         return Promise.resolve(false);
@@ -60,6 +61,7 @@ export class UsersService implements IUsersService {
     }
     return this.persistenceService.showPopUpOrNot(userUid)
     .then((flag) => {
+      //console.log('flag', flag);
       if (flag === 1) {
         return Promise.resolve(false);
       } else {
