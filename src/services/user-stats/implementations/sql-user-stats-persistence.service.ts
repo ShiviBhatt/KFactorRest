@@ -24,7 +24,9 @@ export class UserStatsPersistenceService implements IUserStatsPersistenceService
             userId: userId
         };
         let sql = `
-        select sub.user_id ,SUM(participated) participated,SUM(tie) tie,SUM(win) win,SUM(loss) loss
+        select stats.user_id,stats.participated,stats.tie,stats.win,stats.loss,us.topics_int
+        from
+        (select sub.user_id ,SUM(participated) participated,SUM(tie) tie,SUM(win) win,SUM(loss) loss
         from 
         (select distinct :userId as user_id,challenge_id,
         1 as participated
@@ -32,7 +34,8 @@ export class UserStatsPersistenceService implements IUserStatsPersistenceService
         case when (result='decided' or result='quit')  and winner_user_id= :userId then 1 else 0 end win,
         case when (result='decided' or result='quit')  and winner_user_id <> :userId then 1 else 0 end loss
         from challenge
-        where user_id= :userId or opponent_id= :userId) sub
+        where user_id= :userId or opponent_id= :userId) sub) stats
+        inner join users us on stats.user_id=us.id
         `;
 
         return this.sqlDataDriver.querySingle<IUserStats>(sql, params).then(result => {
