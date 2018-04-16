@@ -11,8 +11,11 @@ import * as utils from './actions/utils';
 import * as user from './actions/user';
 import * as userStats from './actions/user-stats';
 import * as swagger from './swagger';
+import * as cors from 'cors';
 
 const app = exp();
+
+app.use(cors());
 
 let initRoutes = function (): void {
   utils.init(app, kernel);
