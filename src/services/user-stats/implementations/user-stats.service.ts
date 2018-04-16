@@ -30,14 +30,14 @@ export class UserStatsService implements IUserStatsService {
     this.log = loggerFactory.getLogger('services.userService');
   }
 
-  public getUsersStats(userId: number): Promise<IUserStats> {
+  public getUsersStats(userId: number): Promise<any> {
     if (userId < 1) {
       return Promise.reject(new BadRequestError('userId cannot be less than 1'));
     }
     return this.persistenceService.getUserStats(userId);
   }
 
-  public createUserStats(userStats: IUserStats): Promise<IUserStats> {
+  public createUserStats(userStats: IUserStats): Promise<any> {
     return this.persistenceService.createUserStatsTrans(userStats);
   }
 }

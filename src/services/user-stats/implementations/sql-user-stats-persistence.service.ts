@@ -19,7 +19,7 @@ export class UserStatsPersistenceService implements IUserStatsPersistenceService
     this.log = loggerFactory.getLogger('services.userStatsPersistenceService');
   }
 
-  public getUserStats(userId: number): Promise<IUserStats> {
+  public getUserStats(userId: number): Promise<any> {
         let params = {
             userId: userId
         };
@@ -38,7 +38,7 @@ export class UserStatsPersistenceService implements IUserStatsPersistenceService
         inner join users us on stats.user_id=us.id
         `;
 
-        return this.sqlDataDriver.querySingle<IUserStats>(sql, params).then(result => {
+        return this.sqlDataDriver.querySingle<any>(sql, params).then(result => {
           if (!result) {
             throw new NotFoundError(`User's stats does not exist`);
           }
@@ -46,7 +46,7 @@ export class UserStatsPersistenceService implements IUserStatsPersistenceService
         });
   }
 
-  public createUserStatsTrans(userStats: IUserStats): Promise<IUserStats> {
+  public createUserStatsTrans(userStats: IUserStats): Promise<any> {
         return Promise.resolve(userStats);
   }
 }

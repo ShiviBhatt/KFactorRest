@@ -6,6 +6,6 @@ import {
 } from '../../../models';
 
 export interface IUserStatsService {
-  createUserStats(userStats: IUserStats): Promise<IUserStats>;
-  getUsersStats(userId: number): Promise<IUserStats>;
+  createUserStats(userStats: IUserStats): Promise<any>;
+  getUsersStats(userId: number): Promise<any>;
 }

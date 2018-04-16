@@ -5,6 +5,6 @@ import {
 } from '../../../models';
 
 export interface IUserStatsPersistenceService {
-  createUserStatsTrans(userStats: IUserStats): Promise<IUserStats>;
-  getUserStats(userId: number): Promise<IUserStats>;
+  createUserStatsTrans(userStats: IUserStats): Promise<any>;
+  getUserStats(userId: number): Promise<any>;
 }

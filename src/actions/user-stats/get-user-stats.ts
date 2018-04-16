@@ -18,7 +18,7 @@ export function getUserStatsRouteHandler(req: IAuthenticatedRequest, res: exp.Re
   let userId = req.params.userUid.trim();
   let userStatsService = iocContainer.get<IUserStatsService>(Symbol.for('IUserStatsService'));
   userStatsService.getUsersStats(userId)
-    .then((results: IUserStats) => {
+    .then((results: any) => {
       return res.type('json').send(results);
     })
     .catch((error) => {

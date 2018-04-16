@@ -4,4 +4,5 @@ export interface IUserStats {
     tie: number;
     win: number;
     loss: number;
+    topicsOfInterest: string;
 }

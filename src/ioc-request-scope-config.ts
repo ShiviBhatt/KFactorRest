@@ -82,8 +82,8 @@ import {
 } from './services/user-stats';
 
 function bindUserStatsService(iocContainer: Kernel): void {
-  iocContainer.bind<IUsersService>(Symbol.for('IUserStatsService')).to(UserStatsService);
-  iocContainer.bind<IUsersPersistenceService>(Symbol.for('IUserStatsPersistenceService')).to(UserStatsPersistenceService);
+  iocContainer.bind<IUserStatsService>(Symbol.for('IUserStatsService')).to(UserStatsService);
+  iocContainer.bind<IUserStatsPersistenceService>(Symbol.for('IUserStatsPersistenceService')).to(UserStatsPersistenceService);
 }
 
 /* // SPECIALEDUCATION SERVICE
