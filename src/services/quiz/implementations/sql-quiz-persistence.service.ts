@@ -11,14 +11,14 @@ export class QuizPersistenceService implements IQuizPersistenceService {
   private log: ILogger;
   constructor(
     @inject(Symbol.for('ILoggerFactory')) loggerFactory: ILoggerFactory,
-    @inject(Symbol.for('ISqlDataDriverQuiz')) private sqlDataDriver: ISqlDataDriver,
+    @inject(Symbol.for('ISqlDataDriverQuizUp')) private sqlDataDriver: ISqlDataDriver,
   ) {
     this.log = loggerFactory.getLogger('services.quizPersistenceService');
   }
 
-  public getQuiz(): Promise<any> {
+  public getQuiz(topic: string): Promise<any> {
     let quizId: number;
-    return this.getQuizId()
+    return this.getQuizId(topic)
     .then(result => {
       quizId = result;
       let params = {
@@ -45,12 +45,14 @@ export class QuizPersistenceService implements IQuizPersistenceService {
     return Promise.resolve(quiz);
   }
 
-  private getQuizId(): Promise<number> {
-    let params = {};
+  private getQuizId(topic: string): Promise<number> {
+    let params = {
+      topic: topic
+    };
     let sql = `
       SELECT id 
       FROM quiz_dm 
-      WHERE topic='Computer Science'
+      WHERE topic= :topic
       ORDER BY RAND()
       LIMIT 1
     `;

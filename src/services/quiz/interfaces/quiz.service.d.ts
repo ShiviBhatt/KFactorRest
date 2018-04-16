@@ -3,5 +3,5 @@ import { NoopLoggerFactory } from 'pbis-common';
 
 export interface IQuizService {
   createQuiz(quiz: any): Promise<any>;
-  getQuiz(): Promise<any>;
+  getQuiz(topic: string): Promise<any>;
 }

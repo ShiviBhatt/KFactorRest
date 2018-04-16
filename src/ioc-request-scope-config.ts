@@ -98,6 +98,18 @@ function bindLeaderboardService(iocContainer: Kernel): void {
   iocContainer.bind<ILeaderboardPersistenceService>(Symbol.for('ILeaderboardPersistenceService')).to(LeaderboardPersistenceService);
 }
 
+import {
+  QuizService,
+  IQuizService,
+  IQuizPersistenceService,
+  QuizPersistenceService
+} from './services/quiz';
+
+function bindQuizService(iocContainer: Kernel): void {
+  iocContainer.bind<IQuizService>(Symbol.for('IQuizService')).to(QuizService);
+  iocContainer.bind<IQuizPersistenceService>(Symbol.for('IQuizPersistenceService')).to(QuizPersistenceService);
+}
+
 /* // SPECIALEDUCATION SERVICE
 import {
   ISpecialEducationService,
@@ -157,6 +169,7 @@ export function bindRequestIocConfig(iocContainer: Kernel): void {
   bindUnifiedSchemaService(iocContainer);
   bindUserStatsService(iocContainer);
   bindLeaderboardService(iocContainer);
+  bindQuizService(iocContainer);
   //bindSpecialEducationService(iocContainer);
   //bindEntityService(iocContainer);
   //bindEntityDistrict(iocContainer);

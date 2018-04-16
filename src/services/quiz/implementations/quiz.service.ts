@@ -15,7 +15,7 @@ import * as validate from '../../validation';
 import { IQuizPersistenceService, IQuizService } from '../interfaces';
 
 @injectable()
-export class LeaderboardService implements IQuizService {
+export class QuizService implements IQuizService {
 
   private log: ILogger;
 
@@ -26,8 +26,8 @@ export class LeaderboardService implements IQuizService {
     this.log = loggerFactory.getLogger('services.userService');
   }
 
-  public getQuiz(): Promise<any> {
-    return this.persistenceService.getQuiz();
+  public getQuiz(topic: string): Promise<any> {
+    return this.persistenceService.getQuiz(topic);
   }
 
   public createQuiz(quiz: any): Promise<any> {
