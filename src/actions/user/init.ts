@@ -116,4 +116,11 @@ export function init(app: exp.Application, kernel: Kernel): void {
     (req: IAuthenticatedRequest, res: exp.Response) => {
       showPopUpRoute.showPopUpHandler(req, res);
     });
+
+  app.get(
+    `/quizUp/v1/user/UC/:userUid`,
+    middleware.authenticatedMiddlewares(mustBeAuthenticated),
+    (req: IAuthenticatedRequest, res: exp.Response) => {
+      showPopUpRoute.showPopUpHandler(req, res);
+    });
 }

@@ -11,5 +11,7 @@ export interface IUser {
   dob?: string;
   topics_int?: string;
   show_flag?: number;
+  firstName?: string;
+  lastName?: string;
   //user_src_id,source,user_name,grade_level,grade_name,school_name,dob,topics_int,show_flag
 }
