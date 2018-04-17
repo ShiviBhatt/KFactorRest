@@ -37,7 +37,7 @@ export class LeaderboardService implements ILeaderboardService {
     return this.persistenceService.getLeaderboardByScores();
   }
 
-  public createLeaderboard(leaderboard: any): Promise<number> {
-    return this.persistenceService.createLeaderboardTrans(leaderboard);
+  public createLeaderboard(userId: any): Promise<any> {
+    return this.persistenceService.createLeaderboardTrans(userId);
   }
 }

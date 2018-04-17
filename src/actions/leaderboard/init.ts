@@ -36,7 +36,7 @@ export function init(app: exp.Application, kernel: Kernel): void {
     });
 
   app.put(
-    '/quizUp/v1/leaderboard/:leaderboardUid',
+    '/quizUp/v1/leaderboard/:userId',
     middleware.authenticatedMiddlewares(mustBeAuthenticated),
     (req: IAuthenticatedRequest, res: exp.Response) => {
       putLeaderboardRoute.putLeaderboardRouteHandler(req, res);

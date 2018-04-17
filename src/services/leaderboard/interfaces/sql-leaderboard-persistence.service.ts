@@ -5,7 +5,7 @@ import {
 } from '../../../models';
 
 export interface ILeaderboardPersistenceService {
-  createLeaderboardTrans(leaderboard: any): Promise<number>;
+  createLeaderboardTrans(userId: any): Promise<any>;
   getLeaderboardByWins(): Promise<any>;
   getLeaderboardByScores(): Promise<any>;
 }

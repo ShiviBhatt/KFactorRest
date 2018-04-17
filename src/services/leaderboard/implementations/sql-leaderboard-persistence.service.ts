@@ -52,12 +52,12 @@ export class LeaderboardPersistenceService implements ILeaderboardPersistenceSer
     });
   }
 
-  createLeaderboardTrans(leaderboard: any): Promise<number> {
+  createLeaderboardTrans(userId: any): Promise<any> {
     let trans: ISqlTransaction;
     return this.sqlDataDriver.createTransaction()
       .then((xact) => {
         trans = xact;
-        return this.createLeaderboard(trans, leaderboard);
+        return this.createLeaderboard(trans, userId);
       })
       .then(() => {
         return trans.commit();
@@ -73,7 +73,7 @@ export class LeaderboardPersistenceService implements ILeaderboardPersistenceSer
       });
   }
 
-  private createLeaderboard(trans: ISqlTransaction, userId: any): Promise<number> {
+  private createLeaderboard(trans: ISqlTransaction, userId: any): Promise<any> {
     if (!userId) {
       return Promise.reject(new Error('User object is required'));
     }
