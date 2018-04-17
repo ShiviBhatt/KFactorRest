@@ -6,7 +6,7 @@ import {
 } from '../../../models';
 
 export interface ILeaderboardService {
-  createLeaderboard(leaderboard: ILeaderboard): Promise<ILeaderboard>;
+  createLeaderboard(leaderboard: any): Promise<number>;
   getLeaderboardByWins(): Promise<any>;
   getLeaderboardByScores(): Promise<any>;
 }

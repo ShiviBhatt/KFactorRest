@@ -4,9 +4,6 @@ import * as uidUtil from 'library-uid';
 import * as _ from 'lodash';
 import { BadRequestError, ILogger, ILoggerFactory } from 'pbis-common';
 import { ISqlDataDriver, ISqlTransaction, NotFoundError } from 'pbis-common';
-import {
-  IUser, ILeaderboard
-} from '../../../models';
 import { ILeaderboardPersistenceService } from '../interfaces';
 import * as validate from '../../validation';
 @injectable()
@@ -29,7 +26,7 @@ export class LeaderboardPersistenceService implements ILeaderboardPersistenceSer
          LIMIT 10
         `;
 
-    return this.sqlDataDriver.query<IUser>(sql, params).then(results => {
+    return this.sqlDataDriver.query<any>(sql, params).then(results => {
       if (!results) {
         throw new NotFoundError(`Leaderboard is empty`);
       }
@@ -47,7 +44,7 @@ export class LeaderboardPersistenceService implements ILeaderboardPersistenceSer
      LIMIT 10
     `;
 
-    return this.sqlDataDriver.query<IUser>(sql, params).then(results => {
+    return this.sqlDataDriver.query<any>(sql, params).then(results => {
       if (!results) {
         throw new NotFoundError(`Leaderboard is empty`);
       }
@@ -55,7 +52,56 @@ export class LeaderboardPersistenceService implements ILeaderboardPersistenceSer
     });
   }
 
-  createLeaderboardTrans(leaderboard: ILeaderboard): Promise<ILeaderboard> {
-    return Promise.resolve(leaderboard);
+  createLeaderboardTrans(leaderboard: any): Promise<number> {
+    let trans: ISqlTransaction;
+    return this.sqlDataDriver.createTransaction()
+      .then((xact) => {
+        trans = xact;
+        return this.createLeaderboard(trans, leaderboard);
+      })
+      .then(() => {
+        return trans.commit();
+      })
+      .then(() => {
+        return Promise.resolve(1);
+      })
+      .catch((error) => {
+        if (trans) {
+          return trans.rollback().then(() => { return Promise.reject(error); });
+        }
+        return Promise.reject(error);
+      });
+  }
+
+  private createLeaderboard(trans: ISqlTransaction, userId: any): Promise<number> {
+    if (!userId) {
+      return Promise.reject(new Error('User object is required'));
+    }
+    let params = {};
+    let sql = `
+    INSERT INTO leaderboard (user_id,challenges_won,total_score)
+    SELECT a.userid,a.ch_won,b.tot_score
+    FROM 
+    (SELECT '${userId}' AS userid,COUNT(winner_user_id) ch_won
+    FROM challenge
+    WHERE winner_user_id= '${userId}') a
+    INNER JOIN 
+    (SELECT '${userId}' AS userid,SUM(score) tot_score
+    FROM challenge_responses 
+    WHERE user_id= '${userId}'
+    GROUP BY user_id )b ON a.userid=b.userid
+    ON DUPLICATE KEY UPDATE
+    challenges_won= (SELECT COUNT(winner_user_id) ch_won
+    FROM challenge
+    WHERE winner_user_id='${userId}'),
+    total_score=(SELECT SUM(score) tot_score
+    FROM challenge_responses 
+    WHERE user_id= '${userId}'
+    GROUP BY user_id)
+    `;
+    return trans.querySingle(sql, params)
+      .then(() => {
+        return Promise.resolve(1); //result[0].id;
+      });
   }
 }
