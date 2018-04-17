@@ -20,7 +20,8 @@ export class QuizPersistenceService implements IQuizPersistenceService {
     let quizId: number;
     return this.getQuizId(topic)
     .then(result => {
-      quizId = result;
+      let temp = 'id';
+      quizId = result[temp];
       let params = {
         quizId: quizId
       };
