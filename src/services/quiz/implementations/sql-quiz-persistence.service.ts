@@ -26,7 +26,7 @@ export class QuizPersistenceService implements IQuizPersistenceService {
         quizId: quizId
       };
       let sql = `
-        select b.question_id,c.question,d.id as option_id,d.option,d.correct_flag
+        select b.quiz_id,b.question_id,c.question,d.id as option_id,d.option,d.correct_flag
         from quiz_dm a
         inner join quiz_question b on b.quiz_id=a.id
         inner join question_dm c on b.question_id=c.id
