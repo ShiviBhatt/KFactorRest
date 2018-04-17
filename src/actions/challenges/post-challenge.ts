@@ -10,8 +10,7 @@ import {
   USER_TYPE_STAFF,
   IUIConfig
 } from 'pbis-common';
-import { IUser } from '../../models';
-
+import { IChallengesService } from '../../services/challenges';
 import * as validate from '../../services/validation';
 import * as uidUtil from 'library-uid';
 
@@ -19,19 +18,12 @@ export function postChallengesRouteHandler(req: IAuthenticatedRequest, res: exp.
   const iocContainer = req.requestIocContainer;
   const log = iocContainer.get<ILoggerFactory>(Symbol.for('ILoggerFactory')).getLogger('action.challenges.postChallengesRouteHandler');
 
-  let liveUser: IUser = req.body;
+  let challenge: any = req.body;
   let errors = [];
 
-  //TODO: Discuss if we need userType validation
-  /* if (!(req.userPersona.userType === USER_TYPE_STAFF || req.userPersona.userType === USER_TYPE_POWERSCHOOL_STAFF || req.userPersona.userType === USER_TYPE_TEACHER)) {
-    res.status(403).send('Bad request, userType ' + req.userPersona.userType + ' is not authorised to create a new intervention.');
-    return;
-  } */
-
-  //TODO: call service
-  /* let interventionService = iocContainer.get<IInterventionService>(Symbol.for('IInterventionService'));
-  interventionService.createIntervention(intervention)
-    .then((results: IIntervention) => {
+  let challengesService = iocContainer.get<IChallengesService>(Symbol.for('IChallengesService'));
+  challengesService.createChallenge(challenge)
+    .then((results: any) => {
       return res.status(201).type('json').send(results);
     })
     .catch((error) => {
@@ -45,5 +37,5 @@ export function postChallengesRouteHandler(req: IAuthenticatedRequest, res: exp.
         log.error(error);
         res.status(500).send(error);
       }
-    }); */
+    });
 }

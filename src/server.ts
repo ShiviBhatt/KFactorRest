@@ -12,6 +12,7 @@ import * as user from './actions/user';
 import * as userStats from './actions/user-stats';
 import * as leaderboard from './actions/leaderboard';
 import * as quiz from './actions/quiz';
+import * as challenges from './actions/challenges';
 import * as swagger from './swagger';
 import * as cors from 'cors';
 
@@ -25,6 +26,7 @@ let initRoutes = function (): void {
   userStats.init(app, kernel);
   leaderboard.init(app, kernel);
   quiz.init(app, kernel);
+  challenges.init(app, kernel);
   swagger.init(app);
 };
 

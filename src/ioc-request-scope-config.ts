@@ -110,6 +110,18 @@ function bindQuizService(iocContainer: Kernel): void {
   iocContainer.bind<IQuizPersistenceService>(Symbol.for('IQuizPersistenceService')).to(QuizPersistenceService);
 }
 
+import {
+  ChallengesService,
+  IChallengesService,
+  IChallengesPersistenceService,
+  ChallengesPersistenceService
+} from './services/challenges';
+
+function bindChallengesService(iocContainer: Kernel): void {
+  iocContainer.bind<IChallengesService>(Symbol.for('IChallengesService')).to(ChallengesService);
+  iocContainer.bind<IChallengesPersistenceService>(Symbol.for('IChallengesPersistenceService')).to(ChallengesPersistenceService);
+}
+
 /* // SPECIALEDUCATION SERVICE
 import {
   ISpecialEducationService,
